@@ -15,7 +15,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tabs.Navigator
-        >
+        initialRouteName="Dashboard"
+      >
         <Tabs.Screen name="Dashboard" component={Homescreen} />
         <Tabs.Screen name="Map" component={Map} />
         <Tabs.Screen name="Feeds" component={Feeds} />
@@ -24,11 +25,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  homescreen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  }
-});
