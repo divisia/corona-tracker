@@ -1,22 +1,26 @@
 import 'react-native-gesture-handler';  // IMPORTANT, DO NOT DELETE
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import { Header } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Loading from "./screens/Loading";
-import Homescreen from "./screens/Homescreen";
+import Homescreen from "./screens/dashboard/Homescreen";
+import Map from "./screens/Map";
+import Feeds from "./screens/Feeds";
+import Chat from "./screens/Chat";
+import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-const Stack = createBottomTabNavigator();
+const Tabs = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Homescreen} />
-        <Stack.Screen name="Loading" component={Loading} />
-      </Stack.Navigator>
+      <Tabs.Navigator
+        >
+        <Tabs.Screen name="Dashboard" component={Homescreen} />
+        <Tabs.Screen name="Map" component={Map} />
+        <Tabs.Screen name="Feeds" component={Feeds} />
+        <Tabs.Screen name="Chat" component={Chat} />
+      </Tabs.Navigator>
     </NavigationContainer>
   );
 }

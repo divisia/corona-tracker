@@ -3,14 +3,11 @@ import { View, Text, StyleSheet, Button } from 'react-native'
 
 
 const Homescreen = (props) => {
-    const { navigation } = (props);
+    let { navigation } = (props);
+    navigation.setOptions({title:"MOD"})
     return (
         <View style={styles.homescreen}>
-            <Text>Homepage</Text>
-            <Button
-                title="load"
-                onPress={() => navigation.navigate('Loading')}
-            />
+            <Text>Homescreen</Text>
         </View>
     );
 };
