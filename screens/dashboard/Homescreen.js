@@ -4,16 +4,19 @@ import CasesListView from './CasesListView';
 import { Header } from "react-native-elements";
 import RegionSelector from "./RegionSelector"
 import TopOverviewCards from "./TopOverviewCards"
+import SelfReport from "./SelfReport"
+import AutocompleteExample from "./Example"
 
 
 const Homescreen = (props) => {
     let { navigation } = (props);
     return (
         <View style={styles.homescreen}>
-            <Header centerComponent={<Text>COVID Tracker</Text>}></Header>
-            <RegionSelector />
+            <Header containerStyle={styles.header} centerComponent={<Text>COVID Tracker</Text>}></Header>
+            <RegionSelector/>
             <TopOverviewCards />
             <CasesListView />
+            <SelfReport />
         </View>
     );
 };
@@ -25,7 +28,9 @@ const styles = StyleSheet.create({
         justifyContent:"space-between",
         alignItems:"stretch",
     },
-    
+    header:{
+        flexDirection:"column",
+    }
 });
 
 export default Homescreen;

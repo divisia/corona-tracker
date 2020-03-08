@@ -48,7 +48,8 @@ const CasesListView = (props) => {
                         badge={{ value: item.value, textStyle:{color:"white", backgroundColor:"darkgray"} }}
                         containerStyle={styles.caseItems}
                         bottomDivider
-                        leftElement={<Badge status="error"/>}
+                        leftElement={<Badge value="" status="error"/>}
+                        contentContainerStyle={{paddingHorizontal:10}}
                     />
                 ))
             }
@@ -59,7 +60,9 @@ const CasesListView = (props) => {
 const styles = StyleSheet.create({
     cases: {
         width: "100%",
-
+        flex:5,
+        flexDirection:"column",
+        justifyContent:"space-evenly",
     },
     caseItems: {
         margin: 0,

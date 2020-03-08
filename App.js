@@ -8,20 +8,32 @@ import Map from "./screens/Map";
 import Feeds from "./screens/Feeds";
 import Chat from "./screens/Chat";
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import * as firebase from 'firebase';
 
 const Tabs = createBottomTabNavigator();
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Tabs.Navigator
-        initialRouteName="Dashboard"
-      >
-        <Tabs.Screen name="Dashboard" component={Homescreen} />
-        <Tabs.Screen name="Map" component={Map} />
-        <Tabs.Screen name="Feeds" component={Feeds} />
-        <Tabs.Screen name="Chat" component={Chat} />
-      </Tabs.Navigator>
-    </NavigationContainer>
-  );
+const firebaseConfig={
+  apiKey:"AIzaSyCx-v48R2T0yWQcrcOhvSrfCrUg5b1tw0k",
+  projectId:"corona-tracker-app"
+};
+
+firebase.initializeApp(firebaseConfig); 
+const DB = firebase.firestore();
+
+
+export default class App extends React.Component {
+  render(){
+    return (
+      <NavigationContainer>
+        <Tabs.Navigator
+          initialRouteName="Feeds"
+        >
+          <Tabs.Screen DB={DB} name="Dashboard" component={Homescreen} />
+          <Tabs.Screen DB={DB} name="Map" component={Map} />
+          <Tabs.Screen DB={DB} name="Feeds" component={Feeds} />
+          <Tabs.Screen DB={DB} name="Chat" component={Chat} />
+        </Tabs.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
