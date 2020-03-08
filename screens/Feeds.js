@@ -37,7 +37,7 @@ class Feeds extends React.Component {
 
     render() {
         if (this.state.isLoading){
-            return (<Text>Loading</Text>)
+            return (<Text>LOADING</Text>)
         } else {
             return (
                 <ScrollView>

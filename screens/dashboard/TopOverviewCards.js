@@ -18,15 +18,21 @@ const dummyData = [
 ]
 
 const TopOverviewCards = (props) => {
+    const { deaths, infections, recoveries } = props.cases;
     return (
         <View style={styles.overviewCardGroup}>
-            {dummyData.map((item, i)=>
-                (
-                <View style={styles.overviewCard}>
-                    <Text>{item.title}</Text>
-                    <Text style={styles.overviewCardValue}>{item.value}</Text>
-                </View>)
-            )}
+            <View style={styles.overviewCard}>
+                <Text>WHO Confirmed Deaths</Text>
+                <Text style={styles.overviewCardValue}>{deaths}</Text>
+            </View>
+            <View style={styles.overviewCard}>
+                <Text>WHO Confirmed Infections</Text>
+                <Text style={styles.overviewCardValue}>{infections}</Text>
+            </View>
+            <View style={styles.overviewCard}>
+                <Text>WHO Confirmed Recoveries</Text>
+                <Text style={styles.overviewCardValue}>{recoveries}</Text>
+            </View>
         </View>
     );
 };

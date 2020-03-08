@@ -20,7 +20,7 @@ export default class App extends React.Component {
     return (
       <NavigationContainer>
         <Tabs.Navigator
-          initialRouteName="Feeds"
+          initialRouteName="Dashboard"
         >
           <Tabs.Screen name="Dashboard" component={Homescreen} />
           <Tabs.Screen name="Map" component={Map} />

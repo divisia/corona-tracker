@@ -1392,7 +1392,7 @@
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
 
-"@react-navigation/core@^3.6.1":
+"@react-navigation/core@^3.6.0":
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.6.1.tgz#1b8922d9b0e6d74bd9d8802d1eaf21271c90a648"
   integrity sha512-zjz5dUAhehqw4xO/6uNrO0LC/dlOSEh22Sa63f2nNYse1iZdcrrVGsd4EXjO4wdtLMYs/tlqAU/iayQ2hW/nMw==
@@ -1414,7 +1414,7 @@
     shortid "^2.2.15"
     use-subscription "^1.3.0"
 
-"@react-navigation/native@^3.7.3":
+"@react-navigation/native@^3.7.0":
   version "3.7.3"
   resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-3.7.3.tgz#f1869a6194cc3cc6dc520c349c7466de9c82a175"
   integrity sha512-kXEmy5uNAocule6/IqFn1QeGwSojCAgliJW57jqq5kMZFX9Vi3QeM67uzPXTl1DzL0suG5e00AAsx1Hq+SYYqw==
@@ -5166,13 +5166,13 @@ react-native-web@~0.11.7:
     stacktrace-parser "^0.1.3"
     whatwg-fetch "^3.0.0"
 
-react-navigation@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-4.2.2.tgz#8183f47c1b0c7c2350e970aa652c0fee4160ef9e"
-  integrity sha512-/CdQsDkUEJWyKKK68txvFUJDO79+MYFX6DYTVbQ23YtSw/GD5J5pQ/E08IJy8PJNYgnWP/OhiOYg2UpNoh96RQ==
+react-navigation@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-4.2.0.tgz#aca2746ebfd903c876a999726aaec82d71de8cbe"
+  integrity sha512-dszReBZLtCSU6yjU2qniKbNNDg/g4iZrLJrhylKf7+wstAKeJcOoCGc9usVGckDrT+J1GEoQVCVNQY/Sq1wp4g==
   dependencies:
-    "@react-navigation/core" "^3.6.1"
-    "@react-navigation/native" "^3.7.3"
+    "@react-navigation/core" "^3.6.0"
+    "@react-navigation/native" "^3.7.0"
 
 react-refresh@^0.4.0:
   version "0.4.2"

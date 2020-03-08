@@ -24,7 +24,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyDGm380Rwe4VhfBAMUWEssq-bDpcRuO1ys"
+      }
+    },
+    "android": {
+      "package": "engineer.omerselcuk.trackcovid19",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDGm380Rwe4VhfBAMUWEssq-bDpcRuO1ys"
+        }
+      }
     }
   }
 }

@@ -10,14 +10,41 @@ import firestore from "../../libraries/Firestore";
 
 
 class Homescreen extends React.Component {
-    
+    static navigationOptions = {
+        title: 'Dashboard',
+    };
+
+    constructor(props) {
+        super(props);
+        this.ref = firestore.collection('dashboard').doc("confirmed_cases");
+        this.unsubscribe = null;
+        this.state = {
+            isLoading: true,
+            cases: {deaths:"-", infections:"-", recoveries:"-"}
+        };
+    }
+
+    onCaseUpdate = (snapshot) => {
+        const cases = snapshot.data();
+        console.log("incoming")
+        console.log(snapshot);
+        console.log(cases);
+        this.setState({
+            cases: cases,
+            isLoading: false,
+        });
+    }
+
+    componentDidMount() {
+        this.unsubscribe = this.ref.onSnapshot(this.onCaseUpdate);
+    }
     render(){
         return (
             <View style={styles.homescreen}>
                 <Header containerStyle={styles.header} centerComponent={<Text>COVID Tracker</Text>}></Header>
                 <RegionSelector/>
-                <TopOverviewCards />
-                <CasesListView />
+                <TopOverviewCards cases={this.state.cases}/>
+                <CasesListView cases={this.state.cases}/>
                 <SelfReport />
             </View>
         );
