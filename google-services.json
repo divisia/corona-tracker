@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "188231424158",
+    "firebase_url": "https://corona-tracker-app.firebaseio.com",
+    "project_id": "corona-tracker-app",
+    "storage_bucket": "corona-tracker-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188231424158:android:0e67c8c4ad6be66897838f",
+        "android_client_info": {
+          "package_name": "engineer.omerselcuk.trackcovid19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188231424158-fsce2b63ma1v2v801rhhftqa354at6um.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH2MWLb4TzuK7fFP84q_WrxAwlP69cfiU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188231424158-fsce2b63ma1v2v801rhhftqa354at6um.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

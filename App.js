@@ -13,14 +13,13 @@ import firestore from "./libraries/Firestore";
 const Tabs = createBottomTabNavigator();
 
 
-
-
 export default class App extends React.Component {
   render(){
+
     return (
       <NavigationContainer>
         <Tabs.Navigator
-          initialRouteName="Dashboard"
+          initialRouteName="Chat"
         >
           <Tabs.Screen name="Dashboard" component={Homescreen} />
           <Tabs.Screen name="Map" component={Map} />

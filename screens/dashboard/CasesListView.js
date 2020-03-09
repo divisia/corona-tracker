@@ -10,7 +10,7 @@ const CasesListView = (props) => {
         <View style={styles.cases}>
             <ListItem
                 title={ positive.title }
-                badge={{ value: positive.value, textStyle:{color:"white", backgroundColor:"transparent"} }}
+                rightElement={(<Text>{positive.value}</Text>)}
                 containerStyle={styles.caseItems}
                 bottomDivider
                 leftElement={<Badge value="" status="error"/>}
@@ -18,7 +18,7 @@ const CasesListView = (props) => {
             />
             <ListItem
                 title={ negative.title }
-                badge={{ value: negative.value, textStyle:{color:"white", backgroundColor:"transparent"} }}
+                rightElement={(<Text>{negative.value}</Text>)}
                 containerStyle={styles.caseItems}
                 bottomDivider
                 leftElement={<Badge value="" status="error"/>}
@@ -26,7 +26,7 @@ const CasesListView = (props) => {
             />
             <ListItem
                 title={ not_tested.title }
-                badge={{ value: not_tested.value, textStyle:{color:"white", backgroundColor:"transparent"} }}
+                rightElement={(<Text>{not_tested.value}</Text>)}
                 containerStyle={styles.caseItems}
                 bottomDivider
                 leftElement={<Badge value="" status="error"/>}
@@ -34,7 +34,7 @@ const CasesListView = (props) => {
             />
             <ListItem
                 title={ test_pending.title }
-                badge={{ value: test_pending.value, textStyle:{color:"white", backgroundColor:"transparent"} }}
+                rightElement={(<Text>{test_pending.value}</Text>)}
                 containerStyle={styles.caseItems}
                 bottomDivider
                 leftElement={<Badge value="" status="error"/>}

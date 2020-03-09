@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Button, FlatList, Image, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Button, FlatList, Image, ScrollView, SafeAreaView } from 'react-native'
 import { ListItem } from "react-native-elements";
 import firestore from "../libraries/Firestore";
 
@@ -22,6 +22,7 @@ class Feeds extends React.Component {
 
     onFeedUpdate = (snapshot) => {
         const feeds = [];
+        
         snapshot.forEach((doc) => {
             feeds.push(doc.data());
         });
@@ -38,9 +39,19 @@ class Feeds extends React.Component {
     render() {
         if (this.state.isLoading){
             return (<Text>LOADING</Text>)
+        } else if (this.state.feeds.length <= 0){
+            return (
+            <View style={styles.homescreen}>
+                <Text>
+                    We were unable to get the feed. 
+                    You are probably offline, 
+                    and the cache is empty.
+                </Text>
+            </View>)
         } else {
             return (
-                <ScrollView>
+                <SafeAreaView>
+                    <ScrollView>
                     <FlatList
                         data={this.state.feeds}
                         keyExtractor={item => item.id}
@@ -56,6 +67,7 @@ class Feeds extends React.Component {
                         )}
                     />
                 </ScrollView>
+                </SafeAreaView>
             );
         }
 
@@ -76,7 +88,14 @@ const styles = StyleSheet.create({
         marginRight: 5,
         margin: 0,
         borderRadius: 5,
-    }
+    },
+    homescreen: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign:"center",
+        padding:"20%",
+    },
 });
 
 export default Feeds;

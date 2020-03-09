@@ -28,6 +28,7 @@ class Homescreen extends React.Component {
 
     onCaseUpdate = (snapshot) => {
         const cases = snapshot.data();
+        if (typeof cases === 'undefined') return;
         this.setState({
             cases: cases,
             isLoading: false,
@@ -36,6 +37,7 @@ class Homescreen extends React.Component {
 
     onReportUpdate = (snapshot) => {
         const reports = snapshot.data();
+        if (typeof reports === 'undefined') return;
         this.setState({
             reports:reports,
             isLoading: false,

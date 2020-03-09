@@ -1,0 +1,174 @@
+[debug] [2020-03-09T20:07:53.947Z] ----------------------------------------------------------------------
+[debug] [2020-03-09T20:07:53.950Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-03-09T20:07:53.950Z] CLI Version:   7.14.0
+[debug] [2020-03-09T20:07:53.950Z] Platform:      win32
+[debug] [2020-03-09T20:07:53.950Z] Node Version:  v12.16.1
+[debug] [2020-03-09T20:07:53.951Z] Time:          Mon Mar 09 2020 23:07:53 GMT+0300 (GMT+03:00)
+[debug] [2020-03-09T20:07:53.951Z] ----------------------------------------------------------------------
+[debug] [2020-03-09T20:07:53.952Z] 
+[debug] [2020-03-09T20:07:53.962Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-09T20:07:53.964Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\webstorm\corona-tracker\cloud_functions
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project.
+[debug] [2020-03-09T20:08:17.439Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects  
+
+[debug] [2020-03-09T20:08:18.112Z] <<< HTTP RESPONSE 400
+[debug] [2020-03-09T20:08:18.113Z] <<< HTTP RESPONSE BODY
+[debug] [2020-03-09T20:08:18.114Z] HTTP Error: 400, Request contains an invalid argument.
+[debug] [2020-03-09T20:08:18.121Z] FirebaseError: HTTP Error: 400, Request contains an invalid argument.
+    at module.exports (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:39:35)
+    at Request.self.callback (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:311:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at Request.<anonymous> (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1154:10)
+    at Request.emit (events.js:311:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at IncomingMessage.<anonymous> (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1076:12)
+    at Object.onceWrapper (events.js:417:28)
+    at IncomingMessage.emit (events.js:323:22)
+    at IncomingMessage.EventEmitter.emit (domain.js:482:12)
+    at endReadableNT (_stream_readable.js:1204:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21)
+[error] 
+[error] Error: Failed to create Google Cloud project. See firebase-debug.log for more info.
+[debug] [2020-03-09T20:08:25.963Z] ----------------------------------------------------------------------
+[debug] [2020-03-09T20:08:25.966Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-03-09T20:08:25.966Z] CLI Version:   7.14.0
+[debug] [2020-03-09T20:08:25.967Z] Platform:      win32
+[debug] [2020-03-09T20:08:25.967Z] Node Version:  v12.16.1
+[debug] [2020-03-09T20:08:25.968Z] Time:          Mon Mar 09 2020 23:08:25 GMT+0300 (GMT+03:00)
+[debug] [2020-03-09T20:08:25.968Z] ----------------------------------------------------------------------
+[debug] [2020-03-09T20:08:25.968Z] 
+[debug] [2020-03-09T20:08:25.979Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-09T20:08:25.980Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\webstorm\corona-tracker\cloud_functions
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project.
+[debug] [2020-03-09T20:08:37.262Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects  
+
+[debug] [2020-03-09T20:08:37.921Z] <<< HTTP RESPONSE 400
+[debug] [2020-03-09T20:08:37.921Z] <<< HTTP RESPONSE BODY
+[debug] [2020-03-09T20:08:37.923Z] HTTP Error: 400, Request contains an invalid argument.
+[debug] [2020-03-09T20:08:37.929Z] FirebaseError: HTTP Error: 400, Request contains an invalid argument.
+    at module.exports (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:39:35)
+    at Request.self.callback (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:311:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at Request.<anonymous> (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1154:10)
+    at Request.emit (events.js:311:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at IncomingMessage.<anonymous> (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1076:12)
+    at Object.onceWrapper (events.js:417:28)
+    at IncomingMessage.emit (events.js:323:22)
+    at IncomingMessage.EventEmitter.emit (domain.js:482:12)
+    at endReadableNT (_stream_readable.js:1204:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21)
+[error] 
+[error] Error: Failed to create Google Cloud project. See firebase-debug.log for more info.
+[debug] [2020-03-09T20:09:00.495Z] ----------------------------------------------------------------------
+[debug] [2020-03-09T20:09:00.498Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-03-09T20:09:00.498Z] CLI Version:   7.14.0
+[debug] [2020-03-09T20:09:00.498Z] Platform:      win32
+[debug] [2020-03-09T20:09:00.498Z] Node Version:  v12.16.1
+[debug] [2020-03-09T20:09:00.500Z] Time:          Mon Mar 09 2020 23:09:00 GMT+0300 (GMT+03:00)
+[debug] [2020-03-09T20:09:00.500Z] ----------------------------------------------------------------------
+[debug] [2020-03-09T20:09:00.500Z] 
+[debug] [2020-03-09T20:09:00.510Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-09T20:09:00.511Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\webstorm\corona-tracker\cloud_functions
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project.
+[debug] [2020-03-09T20:09:15.730Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects  
+
+[debug] [2020-03-09T20:09:16.407Z] <<< HTTP RESPONSE 400
+[debug] [2020-03-09T20:09:16.408Z] <<< HTTP RESPONSE BODY
+[debug] [2020-03-09T20:09:16.410Z] HTTP Error: 400, Request contains an invalid argument.
+[debug] [2020-03-09T20:09:16.416Z] FirebaseError: HTTP Error: 400, Request contains an invalid argument.
+    at module.exports (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:39:35)
+    at Request.self.callback (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:311:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at Request.<anonymous> (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1154:10)
+    at Request.emit (events.js:311:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at IncomingMessage.<anonymous> (C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1076:12)
+    at Object.onceWrapper (events.js:417:28)
+    at IncomingMessage.emit (events.js:323:22)
+    at IncomingMessage.EventEmitter.emit (domain.js:482:12)
+    at endReadableNT (_stream_readable.js:1204:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21)
+[error] 
+[error] Error: Failed to create Google Cloud project. See firebase-debug.log for more info.
+[debug] [2020-03-09T20:14:42.663Z] ----------------------------------------------------------------------
+[debug] [2020-03-09T20:14:42.666Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Divisia\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-03-09T20:14:42.666Z] CLI Version:   7.14.0
+[debug] [2020-03-09T20:14:42.667Z] Platform:      win32
+[debug] [2020-03-09T20:14:42.667Z] Node Version:  v12.16.1
+[debug] [2020-03-09T20:14:42.668Z] Time:          Mon Mar 09 2020 23:14:42 GMT+0300 (GMT+03:00)
+[debug] [2020-03-09T20:14:42.668Z] ----------------------------------------------------------------------
+[debug] [2020-03-09T20:14:42.668Z] 
+[debug] [2020-03-09T20:14:42.694Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-09T20:14:42.695Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\webstorm\corona-tracker\cloud_functions
+
