@@ -36,6 +36,13 @@
           "apiKey": "AIzaSyDGm380Rwe4VhfBAMUWEssq-bDpcRuO1ys"
         }
       }
+    },
+    "web": {
+      "build": {
+        "babel": {
+          "include": ["static-container"]
+        }
+      }
     }
   }
 }

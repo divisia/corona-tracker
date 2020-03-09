@@ -2,36 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Button, FlatList } from 'react-native'
 import { Card } from 'react-native-elements';
 
-const dummyData = [
-    {
-        title: "Confirmed Deaths",
-        value: "192"
-    },
-    {
-        title: "Confirmed Infections",
-        value: "1435"
-    },
-    {
-        title: "Confirmed Recoveries",
-        value: "781"
-    }
-]
-
 const TopOverviewCards = (props) => {
     const { deaths, infections, recoveries } = props.cases;
     return (
         <View style={styles.overviewCardGroup}>
             <View style={styles.overviewCard}>
-                <Text>WHO Confirmed Deaths</Text>
-                <Text style={styles.overviewCardValue}>{deaths}</Text>
+                <Text>{deaths.title}</Text>
+                <Text style={styles.overviewCardValue}>{deaths.value}</Text>
             </View>
             <View style={styles.overviewCard}>
-                <Text>WHO Confirmed Infections</Text>
-                <Text style={styles.overviewCardValue}>{infections}</Text>
+                <Text>{infections.title}</Text>
+                <Text style={styles.overviewCardValue}>{infections.value}</Text>
             </View>
             <View style={styles.overviewCard}>
-                <Text>WHO Confirmed Recoveries</Text>
-                <Text style={styles.overviewCardValue}>{recoveries}</Text>
+                <Text>{recoveries.title}</Text>
+                <Text style={styles.overviewCardValue}>{recoveries.value}</Text>
             </View>
         </View>
     );
@@ -39,7 +24,7 @@ const TopOverviewCards = (props) => {
 
 const styles = StyleSheet.create({
     overviewCardGroup: {
-        flex:1,
+        flex:2,
         flexDirection: "row",
         justifyContent:"center",
     }, 
@@ -51,7 +36,7 @@ const styles = StyleSheet.create({
         justifyContent:"center",
     },
     overviewCardValue:{
-        marginTop:10,
+        marginTop:5,
         fontWeight:"bold",
     }
 });
