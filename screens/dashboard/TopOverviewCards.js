@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
         backgroundColor:"lightgray",
         flex:1,
         padding:10,
-        textAlign:"center",
         justifyContent:"center",
     },
     overviewCardValue:{

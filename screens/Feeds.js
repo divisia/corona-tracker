@@ -1,8 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Button, FlatList, Image, ScrollView, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, Button, FlatList, Image, ScrollView } from 'react-native'
 import { ListItem } from "react-native-elements";
-import firestore from "../libraries/Firestore";
+import {DatabaseContext} from "../components/DatabaseContext";
 
+
+class Feed extends React.Component {
+    render(){
+        const { thumbnail_url, feed_url, header, origin_url } = props;
+        return (
+            <ListItem
+            subtitle={origin_url}
+            title={header}
+            leftElement={(<Image source={{uri:thumbnail_url}} style={styles.feedThumbnail}/>)}
+            />
+        );
+    }
+}
 
 
 class Feeds extends React.Component {
@@ -10,70 +23,19 @@ class Feeds extends React.Component {
         title: 'Newsfeed',
     };
 
-    constructor(props) {
-        super(props);
-        this.ref = firestore.collection('newsfeed');
-        this.unsubscribe = null;
-        this.state = {
-            isLoading: true,
-            feeds: []
-        };
-    }
-
-    onFeedUpdate = (snapshot) => {
-        const feeds = [];
-        
-        snapshot.forEach((doc) => {
-            feeds.push(doc.data());
-        });
-        this.setState({
-            feeds: feeds,
-            isLoading: false,
-        });
-    }
-
-    componentDidMount() {
-        this.unsubscribe = this.ref.onSnapshot(this.onFeedUpdate);
-    }
-
     render() {
-        if (this.state.isLoading){
-            return (<Text>LOADING</Text>)
-        } else if (this.state.feeds.length <= 0){
-            return (
-            <View style={styles.homescreen}>
-                <Text>
-                    We were unable to get the feed. 
-                    You are probably offline, 
-                    and the cache is empty.
-                </Text>
-            </View>)
-        } else {
-            return (
-                <SafeAreaView>
-                    <ScrollView>
-                    <FlatList
-                        data={this.state.feeds}
-                        keyExtractor={item => item.id}
-                        renderItem={({ item }) => (
-                            <ListItem
-                                title={item.header}
-                                titleStyle={styles.feedHeader}
-                                containerStyle={styles.feed}
-                                leftElement={(<Image style={styles.feedThumbnail} source={{ uri: item.thumbnail_url }} />)}
-                                subtitle={item.origin_url}
-                                bottomDivider
-                            />
-                        )}
-                    />
+        const { feeds } = this.props;
+        return (
+            <View>
+                <ScrollView>
+                    {feeds.map((feed)=>{
+                        <Feed feed={feed}/>
+                    })}
                 </ScrollView>
-                </SafeAreaView>
-            );
-        }
-
-        
+            </View>
+        );
     }
-};
+}
 
 const styles = StyleSheet.create({
     feed: {
@@ -93,8 +55,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        textAlign:"center",
-        padding:"20%",
+        textAlign: "center",
+        padding: "20%",
     },
 });
 

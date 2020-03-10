@@ -4,8 +4,7 @@ import CasesListView from './CasesListView';
 import { Header } from "react-native-elements";
 import RegionSelector from "./RegionSelector";
 import TopOverviewCards from "./TopOverviewCards";
-//import SelfReport from "./SelfReport";
-import firestore from "../../libraries/Firestore";
+import SelfReport from "./SelfReport";
 
 
 class Homescreen extends React.Component {

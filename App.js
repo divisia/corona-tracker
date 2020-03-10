@@ -8,19 +8,18 @@ import Map from "./screens/Map";
 import Feeds from "./screens/Feeds";
 import Chat from "./screens/Chat";
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import firestore, { callbacks } from "./libraries/Firestore";
-import DatabaseContext, { DatabaseContextProvider } from "./src/context";
+import DatabaseContextProvider, { DatabaseContext } from "./components/DatabaseContext";
 
 const Tabs = createBottomTabNavigator();
 
 export default class App extends React.Component {
+  state = {  }
   render() {
-    callbacks.reported.push((snapshot) => { console.log(snapshot.data()); })
     return (
       <DatabaseContextProvider>
         <NavigationContainer>
           <Tabs.Navigator
-            initialRouteName="Chat"
+            initialRouteName="Dashboard"
           >
             <Tabs.Screen name="Dashboard" component={Homescreen} />
             <Tabs.Screen name="Map" component={Map} />
