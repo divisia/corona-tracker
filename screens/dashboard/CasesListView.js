@@ -4,52 +4,46 @@ import { Button, Divider, ListItem, Header, Badge } from 'react-native-elements'
 import firestore from "../../libraries/Firestore"
 
 
-const CasesListView = (props) => {
-    const { positive, negative, not_tested, test_pending } = props.reports;
-    return (
-        <View style={styles.cases}>
-            <ListItem
-                title={ positive.title }
-                rightElement={(<Text>{positive.value}</Text>)}
-                containerStyle={styles.caseItems}
-                bottomDivider
-                leftElement={<Badge value="" status="error"/>}
-                contentContainerStyle={{paddingHorizontal:10}}
-            />
-            <ListItem
-                title={ negative.title }
-                rightElement={(<Text>{negative.value}</Text>)}
-                containerStyle={styles.caseItems}
-                bottomDivider
-                leftElement={<Badge value="" status="error"/>}
-                contentContainerStyle={{paddingHorizontal:10}}
-            />
-            <ListItem
-                title={ not_tested.title }
-                rightElement={(<Text>{not_tested.value}</Text>)}
-                containerStyle={styles.caseItems}
-                bottomDivider
-                leftElement={<Badge value="" status="error"/>}
-                contentContainerStyle={{paddingHorizontal:10}}
-            />
-            <ListItem
-                title={ test_pending.title }
-                rightElement={(<Text>{test_pending.value}</Text>)}
-                containerStyle={styles.caseItems}
-                bottomDivider
-                leftElement={<Badge value="" status="error"/>}
-                contentContainerStyle={{paddingHorizontal:10}}
-            />
-        </View>
-    );
+class CasesListView extends React.Component {
+
+    render() {
+        return (
+            <View style={styles.cases}>
+                <ListItem
+                    title=""
+                    rightElement={(<Text></Text>)}
+                    containerStyle={styles.caseItems}
+                    bottomDivider
+                    leftElement={<Badge value="" status="error" />}
+                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                />
+                <ListItem
+                    title=""
+                    rightElement={(<Text></Text>)}
+                    containerStyle={styles.caseItems}
+                    bottomDivider
+                    leftElement={<Badge value="" status="error" />}
+                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                />
+                <ListItem
+                    title=""
+                    rightElement={(<Text></Text>)}
+                    containerStyle={styles.caseItems}
+                    bottomDivider
+                    leftElement={<Badge value="" status="error" />}
+                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                />
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
     cases: {
         width: "100%",
-        flex:5,
-        flexDirection:"column",
-        justifyContent:"space-evenly",
+        flex: 5,
+        flexDirection: "column",
+        justifyContent: "space-evenly",
     },
     caseItems: {
         margin: 0,

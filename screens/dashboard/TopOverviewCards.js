@@ -3,20 +3,19 @@ import { View, Text, StyleSheet, Button, FlatList } from 'react-native'
 import { Card } from 'react-native-elements';
 
 const TopOverviewCards = (props) => {
-    const { deaths, infections, recoveries } = props.cases;
     return (
         <View style={styles.overviewCardGroup}>
             <View style={styles.overviewCard}>
-                <Text>{deaths.title}</Text>
-                <Text style={styles.overviewCardValue}>{deaths.value}</Text>
+                <Text></Text>
+                <Text style={styles.overviewCardValue}></Text>
             </View>
             <View style={styles.overviewCard}>
-                <Text>{infections.title}</Text>
-                <Text style={styles.overviewCardValue}>{infections.value}</Text>
+                <Text></Text>
+                <Text style={styles.overviewCardValue}></Text>
             </View>
             <View style={styles.overviewCard}>
-                <Text>{recoveries.title}</Text>
-                <Text style={styles.overviewCardValue}>{recoveries.value}</Text>
+                <Text></Text>
+                <Text style={styles.overviewCardValue}></Text>
             </View>
         </View>
     );

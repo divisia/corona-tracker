@@ -15,12 +15,28 @@ if (typeof atob === 'undefined') {
 }
 
 const config = {
-    apiKey:"AIzaSyCx-v48R2T0yWQcrcOhvSrfCrUg5b1tw0k",
-    projectId:"corona-tracker-app"
+  apiKey: "AIzaSyCx-v48R2T0yWQcrcOhvSrfCrUg5b1tw0k",
+  projectId: "corona-tracker-app"
 }
 
 
 firebase.initializeApp(config);
 const firestore = firebase.firestore();
+
+const callbacks = {};
+callbacks.feed = [];
+callbacks.reported = [];
+callbacks.confirmed = [];
+
+const ref = {};
+ref.feeds = firestore.collection("newsfeed").doc("overall");
+ref.reported = firestore.collection("reported").doc("overall");
+ref.confirmed = firestore.collection("confirmed").doc("overall");
+
+export { ref, callbacks };
+
+ref.reported.onSnapshot((snapshot) => {
+  callbacks.reported.forEach((callback) => { callback(snapshot) })
+})
 
 export default firestore;

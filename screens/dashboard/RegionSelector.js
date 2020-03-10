@@ -52,7 +52,7 @@ const RegionSelector = (props) => {
                             onClose: () => setVisible(false),
                             onOpen: () => setVisible(true),
                     }}
-                    translation={"deu"}
+                    translation={"de"}
                     />
                 </ScrollView>
         </View>
