@@ -27,22 +27,29 @@ export default class DatabaseContextProvider extends Component {
     }
 
     queryGenerator = (type) => {
-        return type + this.state.filter.join("/filterable/") + "/overall";
+        return type + "/" + this.state.filter.join("/filterable/") + "/overall";
     }
     updateQueries = () => {
-        this.setState({ cases: { ...this.state.cases, query: this.queryGenerator("cases") }, reported: { ...this.state.reported, query: this.queryGenerator("reported") } })
+        this.setState({})
     }
 
     alterFilter = (val) => {
+        this.config.unsubscribeCases();
+        this.config.unsubscribeReported();
+
         this.state.filter = val.split(":");
+        this.setState({
+            cases: { ...this.state.cases, query: this.queryGenerator("cases") },
+            reported: { ...this.state.reported, query: this.queryGenerator("reported") }
+        })
+        
         try { AsyncStorage.setItem("filter", val); } catch { console.log("Filter saving error"); }
-        updateQueries();
     }
 
     // Firestore listeners
     feedsListener = (snapshot) => {
         const feedlist = [];
-        snapshot.forEach((doc) => feedlist.push({...doc.data(), id:doc.id}))
+        snapshot.forEach((doc) => feedlist.push({ ...doc.data(), id: doc.id }))
         this.setState({ feeds: { data: feedlist, loading: false } })
     }
     reportedListener = (snapshot) => {
@@ -68,25 +75,23 @@ export default class DatabaseContextProvider extends Component {
         try {
             const value = await AsyncStorage.getItem('regionFilter');
             if (value !== null) {
-                this.config.filter = value.split(":");
-                this.updateQueries();
+                this.alterFilter(value.split(":"));
             }
         } catch (error) {
-            this.config.filter = [];
         }
     };
 
     componentDidMount = () => {
-        this.config = { filter: [] }
+        this.config = {}
         this.loadSavedFilter();
         firestore.collection("newsfeed").onSnapshot(this.feedsListener);
-        firestore.doc(this.state.cases.query).onSnapshot(this.casesListener);
-        firestore.doc(this.state.reported.query).onSnapshot(this.reportedListener);
+        this.config.unsubscribeCases = firestore.doc(this.state.cases.query).onSnapshot(this.casesListener);
+        this.config.unsubscribeReported = firestore.doc(this.state.reported.query).onSnapshot(this.reportedListener);
     }
 
     render() {
         return (
-            <DatabaseContext.Provider value={{ ...this.state, alterFilter:this.alterFilter }}>
+            <DatabaseContext.Provider value={{ ...this.state, alterFilter: this.alterFilter }}>
                 {this.props.children}
             </DatabaseContext.Provider>
         )
