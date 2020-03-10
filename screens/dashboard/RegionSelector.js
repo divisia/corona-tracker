@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { View, TextInput, StyleSheet, AsyncStorage } from 'react-native'
+import { View, TextInput, StyleSheet, Button } from 'react-native'
+import { DatabaseContext } from '../../components/DatabaseContext';
 
 
 const RegionSelector = (props) => {
     const [val, setVal] = useState("");
 
     return (
-        <View style={styles.regionSelector}>
-                <TextInput onChangeText={setVal} value={val} placeholder="Enter region"/>
-                <Button title="confirm" onPress={()=>{props.alterFilter(val)}}/>
-        </View>
+        <DatabaseContext.Consumer>
+            {(context) => {
+                const { alterFilter } = context;
+                return (
+                    <View style={styles.regionSelector}>
+                        <TextInput onChangeText={setVal} value={val} placeholder="Enter region" />
+                        <Button title="confirm" onPress={() => { alterFilter(val) }} />
+                    </View>
+                );
+            }}
+        </DatabaseContext.Consumer>
     );
 };
 

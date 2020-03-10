@@ -26,13 +26,17 @@ export default class DatabaseContextProvider extends Component {
         },
     }
 
+    queryGenerator = (type) => {
+        return type + this.state.filter.join("/filterable/") + "/overall";
+    }
+    updateQueries = () => {
+        this.setState({ cases: { ...this.state.cases, query: this.queryGenerator("cases") }, reported: { ...this.state.reported, query: this.queryGenerator("reported") } })
+    }
+
     alterFilter = (val) => {
         this.state.filter = val.split(":");
         try { AsyncStorage.setItem("filter", val); } catch { console.log("Filter saving error"); }
-    }
-
-    queryGenerator = (type) => {
-        return type + this.config.filter.join("/filterable/") + "/overall";
+        updateQueries();
     }
 
     // Firestore listeners
@@ -65,7 +69,7 @@ export default class DatabaseContextProvider extends Component {
             const value = await AsyncStorage.getItem('regionFilter');
             if (value !== null) {
                 this.config.filter = value.split(":");
-                this.setState({ cases: { ...this.state.cases, query: this.queryGenerator("cases") }, reported: { ...this.state.reported, query: this.queryGenerator("reported") } })
+                this.updateQueries();
             }
         } catch (error) {
             this.config.filter = [];
