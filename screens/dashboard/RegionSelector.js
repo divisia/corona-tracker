@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Button, FlatList, ScrollView, TouchableOpacity } from 'react-native'
+import { View, TextInput, StyleSheet, AsyncStorage } from 'react-native'
 
 
 const RegionSelector = (props) => {
-
+    const [val, setVal] = useState("");
 
     return (
         <View style={styles.regionSelector}>
-                <Text>Select rejyona</Text>
+                <TextInput onChangeText={setVal} value={val} placeholder="Enter region"/>
+                <Button title="confirm" onPress={()=>{props.alterFilter(val)}}/>
         </View>
     );
 };

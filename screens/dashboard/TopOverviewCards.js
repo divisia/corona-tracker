@@ -6,15 +6,15 @@ const TopOverviewCards = (props) => {
     return (
         <View style={styles.overviewCardGroup}>
             <View style={styles.overviewCard}>
-                <Text></Text>
+                <Text>c</Text>
                 <Text style={styles.overviewCardValue}></Text>
             </View>
             <View style={styles.overviewCard}>
-                <Text></Text>
+                <Text>i</Text>
                 <Text style={styles.overviewCardValue}></Text>
             </View>
             <View style={styles.overviewCard}>
-                <Text></Text>
+                <Text>r</Text>
                 <Text style={styles.overviewCardValue}></Text>
             </View>
         </View>

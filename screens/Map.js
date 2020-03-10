@@ -5,12 +5,12 @@ import MapView from 'react-native-maps';
 
 const checkMapAvailability = () => {
     const mapsScriptLoaded = typeof google !== 'undefined'
-    return navigator.onLine && mapsScriptLoaded;
+    return navigator.onLine;
 }
 
 const Map = (props) => {
     const mapAvailable = checkMapAvailability();
-    if (!mapAvailable) {
+    if (false&&!mapAvailable) {
         // The screen when map is not available, offline etc.
         return (
             <View style={styles.homescreen}>

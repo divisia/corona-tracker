@@ -14,7 +14,7 @@ class CasesListView extends React.Component {
                         <View style={styles.cases}>
                             <ListItem
                                 title=""
-                                rightElement={(<Text>0x00000</Text>)}
+                                rightElement={(<Text>"sdf</Text>)}
                                 containerStyle={styles.caseItems}
                                 bottomDivider
                                 leftElement={<Badge value="" status="error" />}
