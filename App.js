@@ -7,9 +7,9 @@ import { MapScreen, FeedsScreen, ChatScreen, DashboardScreen } from "./screens/S
 
 export default class App extends React.Component {
   state = {
-    index: 0,
+    index: 1,
     routes: [
-      { key: 'dashboard', title: 'Dashboard', icon:(<Ionicons name="ios-stats"/>)},
+      { key: 'dashboard', title: 'Dashboard', icon:'home'},
       { key: 'map', title: 'Map', icon: 'map' },
       { key: 'feeds', title: 'Feeds', icon: 'newspaper' },
     ],

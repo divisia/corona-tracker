@@ -10,11 +10,13 @@ class CasesListView extends React.Component {
         return (
             <DatabaseContext.Consumer>
                 {(context) => {
+                    const { cases } = context;
+                    const deadCount = (typeof cases.data === 'undefined' || typeof cases.data.dead === 'undefined') ? "N/A" : cases.data.dead.now
                     return (
                         <View style={styles.cases}>
                             <ListItem
-                                title=""
-                                rightElement={(<Text>"sdf</Text>)}
+                                title="Deaths"
+                                rightElement={(<Text>{deadCount}</Text>)}
                                 containerStyle={styles.caseItems}
                                 bottomDivider
                                 leftElement={<Badge value="" status="error" />}

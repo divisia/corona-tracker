@@ -27,23 +27,41 @@ export default class DatabaseContextProvider extends Component {
     }
 
     queryGenerator = (type) => {
-        return type + "/" + this.state.filter.join("/filterable/") + "/overall";
+        if (this.state.filter.length == 0) { return type + "/overall" }
+        return type + "/filterable/" + this.state.filter.join("/filterable/") + "/overall";
     }
-    updateQueries = () => {
-        this.setState({})
-    }
+
+    shouldComponentUpdate = () => { return this.shouldUpdate; }
 
     alterFilter = (val) => {
+        this.shouldUpdate = false;
         this.config.unsubscribeCases();
         this.config.unsubscribeReported();
+        let filter;
+        if (val.length == 0) filter = [];
+        else filter = val.split(":");
+        this.setState({ filter: filter }, () => {
+            this.setState({
+                cases: { ...this.state.cases, query: this.queryGenerator("cases") },
+                reported: { ...this.state.reported, query: this.queryGenerator("reported") }
+            }, () => {
+                console.log(this.state.cases.query);
+                console.log("Subscribing new listeners")
+                this.config.unsubscribeCases = firestore.doc(this.state.cases.query).onSnapshot(this.casesListener);
+                this.config.unsubscribeReported = firestore.doc(this.state.reported.query).onSnapshot(this.reportedListener);
+                this.shouldUpdate = true;
+            })
+        });
 
-        this.state.filter = val.split(":");
-        this.setState({
-            cases: { ...this.state.cases, query: this.queryGenerator("cases") },
-            reported: { ...this.state.reported, query: this.queryGenerator("reported") }
-        })
-        
+
+
         try { AsyncStorage.setItem("filter", val); } catch { console.log("Filter saving error"); }
+    }
+    filterFallback = () => {
+        this.state.filter.pop();
+        this.state.filter.pop();
+        this.state.filter.push("overall");
+        this.alterFilter(this.state.filter.join(":"));
     }
 
     // Firestore listeners
@@ -53,15 +71,27 @@ export default class DatabaseContextProvider extends Component {
         this.setState({ feeds: { data: feedlist, loading: false } })
     }
     reportedListener = (snapshot) => {
+        let reportedData = undefined;
+        if (!snapshot.exists || typeof snapshot === 'undefined') {
+            console.log("Reported data cannot be found for selected filter.")
+        } else {
+            reportedData = snapshot.data();
+        }
         this.setState({
             reported: {
                 ...this.state.reported,
-                data: snapshot.data(),
+                data: reportedData,
                 loading: false,
             }
         })
     }
     casesListener = (snapshot) => {
+        let casesData = undefined;
+        if (!snapshot.exists || typeof snapshot === 'undefined') {
+            console.log("Cases data cannot be found for selected filter.")
+        } else {
+            casesData = snapshot.data();
+        }
         this.setState({
             cases: {
                 ...this.state.cases,
@@ -82,6 +112,7 @@ export default class DatabaseContextProvider extends Component {
     };
 
     componentDidMount = () => {
+        this.shouldUpdate = true;
         this.config = {}
         this.loadSavedFilter();
         firestore.collection("newsfeed").onSnapshot(this.feedsListener);
