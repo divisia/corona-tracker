@@ -24,6 +24,7 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "engineer.omerselcuk.trackcovid19",
       "supportsTablet": true,
       "config": {
         "googleMapsApiKey": "AIzaSyDGm380Rwe4VhfBAMUWEssq-bDpcRuO1ys"

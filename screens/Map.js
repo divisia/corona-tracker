@@ -76,9 +76,10 @@ const Map = (props) => {
                         latitudeDelta: 0.2022,
                         longitudeDelta: 0.1421,
                     }}>
-                    <Heatmap
+                    <MapView.Heatmap
                     points={HEATMAPOINTS}
                     radius={40}
+                    
                     gradient={{
                         colors: ["#79BC6A", "#BBCF4C", "#EEC20B", "#F29305", "#E50000"],
                         startPoints: [0, 0.25, 0.50, 0.75, 1],

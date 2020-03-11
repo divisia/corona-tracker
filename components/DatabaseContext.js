@@ -10,6 +10,7 @@ export default class DatabaseContextProvider extends Component {
 
     state = {
         filter: [],
+        heatmap:null,
         feeds: {
             loading: true,
             data: []
@@ -100,6 +101,11 @@ export default class DatabaseContextProvider extends Component {
             }
         })
     }
+    heatmapListener = (snapshot) => {
+        if (!snapshot.exists || typeof snapshot === 'undefined'){ return; }
+        const heatmapData = snapshot.data();
+        this.setState({heatmap:heatmapData});
+    }
 
     loadSavedFilter = async () => {
         try {
@@ -116,6 +122,7 @@ export default class DatabaseContextProvider extends Component {
         this.config = {}
         this.loadSavedFilter();
         firestore.collection("newsfeed").onSnapshot(this.feedsListener);
+        firestore.doc("heatmap/overall").onSnapshot(this.heatmapListener);
         this.config.unsubscribeCases = firestore.doc(this.state.cases.query).onSnapshot(this.casesListener);
         this.config.unsubscribeReported = firestore.doc(this.state.reported.query).onSnapshot(this.reportedListener);
     }
