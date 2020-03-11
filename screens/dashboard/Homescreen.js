@@ -7,6 +7,14 @@ import TopOverviewCards from "./TopOverviewCards";
 import SelfReport from "./SelfReport";
 
 
+const headerTitle = () => {
+    return (
+    <View style={styles.headerTitleWrapper}>
+        <Text style={styles.headerTitle}>Track COVID-19</Text>
+    </View>
+);
+    }
+
 class Homescreen extends React.Component {
     static navigationOptions = {
         title: 'Dashboardieee',
@@ -15,7 +23,7 @@ class Homescreen extends React.Component {
     render() {
         return (
             <View style={styles.homescreen}>
-                <Header containerStyle={styles.header} centerComponent={<Text>COVID Tracker</Text>}></Header>
+                <Header containerStyle={styles.header} centerComponent={headerTitle}></Header>
                 <RegionSelector />
                 <TopOverviewCards />
                 <CasesListView />
@@ -34,6 +42,14 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: "column",
+        backgroundColor:"#f81b4b"
+    },
+    headerTitle:{
+        fontSize:20,
+    },
+    headerTitleWrapper:{
+        alignItems:"center",
+        justifyContent:"center",
     }
 });
 

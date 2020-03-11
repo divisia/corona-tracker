@@ -12,8 +12,8 @@ const RegionSelector = (props) => {
                 const { alterFilter } = context;
                 return (
                     <View style={styles.regionSelector}>
-                        <TextInput onChangeText={setVal} value={val} placeholder="Enter region" />
-                        <Button title="confirm" onPress={() => { alterFilter(val) }} />
+                        <TextInput style={styles.input} onChangeText={setVal} value={val} placeholder="Enter region" />
+                        <Button style={styles.button} title="confirm" onPress={() => { alterFilter(val) }} />
                     </View>
                 );
             }}
@@ -25,18 +25,27 @@ const styles = StyleSheet.create({
     regionSelector: {
         flex: 1,
         flexDirection: "row",
-        alignItems: "stretch",
+        alignItems: "center",
         justifyContent: "center",
-        right: 0,
-        left: 0,
-        top: 0,
-        zIndex: 1,
+        padding:0,
+        margin:0,
+        width:"100%"
     },
     input: {
-        margin: 0,
-        position: "absolute",
-        alignContent: "stretch",
-
+        marginRight:30,
+        marginLeft:20,
+        padding:5,
+        alignContent: "center",
+        borderColor:"transparent",
+        borderBottomColor:"lightgray",
+        borderWidth:1,
+        width:"50%"
+    },
+    button:{
+        left:0,
+        alignItems:"center",
+        justifyContent:"center",
+        alignSelf:"flex-end"
     }
 });
 

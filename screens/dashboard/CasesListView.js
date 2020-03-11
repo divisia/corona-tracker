@@ -4,22 +4,33 @@ import { Button, Divider, ListItem, Header, Badge } from 'react-native-elements'
 import { DatabaseContext } from "../../components/DatabaseContext";
 
 
+const NA = "N/A";
+
+
 class CasesListView extends React.Component {
 
     render() {
         return (
             <DatabaseContext.Consumer>
                 {(context) => {
-                    const { cases } = context;
-                    const deadCount = (typeof cases.data === 'undefined' || typeof cases.data.dead === 'undefined') ? "N/A" : cases.data.dead.now
+                    const { reported } = context;
+                    const loading = reported.loading;
                     return (
                         <View style={styles.cases}>
                             <ListItem
-                                title="Deaths"
-                                rightElement={(<Text>{deadCount}</Text>)}
+                                title="Reported Symptomatic Positive"
+                                rightElement={(<Text>{loading ? NA : reported.data.positive.now}</Text>)}
                                 containerStyle={styles.caseItems}
                                 bottomDivider
-                                leftElement={<Badge value="" status="error" />}
+                                key={Math.random().toString()}
+                                contentContainerStyle={{ paddingHorizontal: 10 }}
+                            />
+                            <ListItem
+                                title="Reported Symptomatic Negative"
+                                rightElement={(<Text>{loading ? NA : reported.data.negative.now}</Text>)}
+                                containerStyle={styles.caseItems}
+                                bottomDivider
+                                key={Math.random().toString()}
                                 contentContainerStyle={{ paddingHorizontal: 10 }}
                             />
                         </View>
@@ -35,11 +46,14 @@ const styles = StyleSheet.create({
         width: "100%",
         flex: 5,
         flexDirection: "column",
-        justifyContent: "space-evenly",
+        justifyContent: "flex-start",
     },
     caseItems: {
-        margin: 0,
+        margin: 2,
         padding: 10,
+        backgroundColor:"transparent",
+        borderColor:"darkgray",
+        borderWidth:1,
     }
 })
 

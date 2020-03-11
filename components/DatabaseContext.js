@@ -46,8 +46,6 @@ export default class DatabaseContextProvider extends Component {
                 cases: { ...this.state.cases, query: this.queryGenerator("cases") },
                 reported: { ...this.state.reported, query: this.queryGenerator("reported") }
             }, () => {
-                console.log(this.state.cases.query);
-                console.log("Subscribing new listeners")
                 this.config.unsubscribeCases = firestore.doc(this.state.cases.query).onSnapshot(this.casesListener);
                 this.config.unsubscribeReported = firestore.doc(this.state.reported.query).onSnapshot(this.reportedListener);
                 this.shouldUpdate = true;
@@ -102,9 +100,10 @@ export default class DatabaseContextProvider extends Component {
         })
     }
     heatmapListener = (snapshot) => {
-        if (!snapshot.exists || typeof snapshot === 'undefined'){ return; }
-        const heatmapData = snapshot.data();
-        this.setState({heatmap:heatmapData});
+        if (typeof snapshot === 'undefined'){ console.log("Heatmap snapshot is undefined."); return; }
+        const heatmap  = {};
+        snapshot.forEach((pointArray)=>{ heatmap[pointArray.id]=pointArray.data(); })
+        this.setState({heatmap:heatmap});
     }
 
     loadSavedFilter = async () => {
@@ -122,7 +121,7 @@ export default class DatabaseContextProvider extends Component {
         this.config = {}
         this.loadSavedFilter();
         firestore.collection("newsfeed").onSnapshot(this.feedsListener);
-        firestore.doc("heatmap/overall").onSnapshot(this.heatmapListener);
+        firestore.collection("heatmap").onSnapshot(this.heatmapListener);
         this.config.unsubscribeCases = firestore.doc(this.state.cases.query).onSnapshot(this.casesListener);
         this.config.unsubscribeReported = firestore.doc(this.state.reported.query).onSnapshot(this.reportedListener);
     }
