@@ -55,7 +55,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#f81b4b",
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 24,
+    color:"#ededed",
+    fontFamily:"Montserrat-ExtraBold"
   },
   headerTitleWrapper: {
     alignItems: "center",

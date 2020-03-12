@@ -184,7 +184,10 @@ const styles = StyleSheet.create({
         marginBottom:30
     },
     image: {
-        height: 100, width: "100%",
+        width: "100%",
+        minWidth:50,
+        minHeight:50,
+        aspectRatio:1,
         marginBottom:5
     },
     sectionContext: {
@@ -198,7 +201,9 @@ const styles = StyleSheet.create({
         width:100,
         borderColor:"#ddd",
         borderWidth:1,
-        textAlign:"left"
+        textAlign:"left",
+        maxWidth:"33%",
+        minWidth:"10%"
     },
     sectionItemText: {
         paddingHorizontal:4,

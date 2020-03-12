@@ -66,7 +66,10 @@ class SelfReport extends Component {
         return (
             <View style={styles.selfReportWrapper}>
                 <Text>Would you like to help us tracing COVID-19?</Text>
+                <View style={styles.button}>
                 <Button title="Sure" onPress={() => { this.setState({ visible: true }) }} />
+                </View>
+                
 
                 <Modal
                     visible={this.state.visible}
@@ -187,6 +190,9 @@ const styles = StyleSheet.create({
     modalWrapper: {
         width: "100%",
     },
+    button:{
+        marginHorizontal:5,
+    }
 });
 
 export default SelfReport;
