@@ -71,8 +71,10 @@ export default class DatabaseContextProvider extends Component {
     }
     reportedListener = (snapshot) => {
         let reportedData = undefined;
+        let loading = false;
         if (!snapshot.exists || typeof snapshot === 'undefined') {
             console.log("Reported data cannot be found for selected filter.")
+            loading =true;
         } else {
             reportedData = snapshot.data();
         }
@@ -80,7 +82,7 @@ export default class DatabaseContextProvider extends Component {
             reported: {
                 ...this.state.reported,
                 data: reportedData,
-                loading: false,
+                loading: loading,
             }
         })
     }
