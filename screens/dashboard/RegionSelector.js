@@ -27,7 +27,7 @@ class RegionSelector extends Component {
                         <View style={styles.regionSelectorWrapper}>
 
                             <TouchableOpacity onPress={() => { this.setState({ visible: true }) }}>
-                    <View style={styles.button}><Text>Region: {context.cases.loading?NA:context.filter.length==0?"Earth":context.filter.join(", ")}</Text></View>
+                                <View style={styles.button}><Text>Region: {context.cases.loading ? NA : context.filter.length == 0 ? "Earth" : context.filter.join(", ")}</Text></View>
                             </TouchableOpacity>
 
 
@@ -42,11 +42,13 @@ class RegionSelector extends Component {
                                         context.cases.data.subregions.map((region) => {
                                             return (
                                                 <ListItem
+                                                    key={Math.random().toString()}
                                                     containerStyle={styles.subregionContainer}
                                                     title={region}
-                                                    onPress={() => { 
-                                                        console.log("setting filter", region); 
-                                                        context.alterFilter(context.filter.join(":") + region) }}
+                                                    onPress={() => {
+                                                        console.log("setting filter", region);
+                                                        context.alterFilter(context.filter.length == 0 ? region : context.filter.join(":") + ":" + region)
+                                                    }}
                                                 />
 
                                             );
@@ -93,9 +95,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    subregionContainer:{
-        padding:4,
-        margin:2,
+    subregionContainer: {
+        padding: 4,
+        margin: 2,
     }
 });
 

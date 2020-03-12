@@ -1,12 +1,16 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, Image } from 'react-native'
+import { getMediaUri } from '../utilities/constants'
 
 
 const Chat = (props) => {
     const { navigation } = (props);
     return (
         <View style={styles.homescreen}>
-            <Text>Chat</Text>
+            <Image
+                style={{ width: 210, height: 250}}
+                source={{ uri: getMediaUri("under_construction.png") }}
+            />
         </View>
     );
 };

@@ -1,19 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import CasesListView from './CasesListView';
-import { Header } from "react-native-elements";
 import RegionSelector from "./RegionSelector";
 import TopOverviewCards from "./TopOverviewCards";
 import SelfReport from "./SelfReport";
 
-
-const headerTitle = () => {
-    return (
-    <View style={styles.headerTitleWrapper}>
-        <Text style={styles.headerTitle}>Track COVID-19</Text>
-    </View>
-);
-    }
 
 class Homescreen extends React.Component {
     static navigationOptions = {
@@ -23,7 +14,6 @@ class Homescreen extends React.Component {
     render() {
         return (
             <View style={styles.homescreen}>
-                <Header containerStyle={styles.header} centerComponent={headerTitle}></Header>
                 <RegionSelector />
                 <TopOverviewCards />
                 <CasesListView />
