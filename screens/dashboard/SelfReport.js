@@ -9,57 +9,7 @@ import Constants, { installationId } from 'expo-constants';
 import publicIP from 'react-native-public-ip';
 
 
-const getLocation = async (ipv4) => {
-
-    const getGeoIp = async () => {
-        const position = { longitude: 0, latitude: 0 }
-        await fetch(`api.ipstack.com/${ipv4}?access_key=9de8d32f0e86a88be160ed408a7c84b5`)
-            .then(json => {
-                position = {
-                    state: json.region_name,
-                    city: json.city,
-                    country: json.country_code,
-                    latitude: json.latitude,
-                    longitude: json.longitude
-                };
-                return [position, false]
-            }).catch(() => {
-                fetch(`https://freegeoip.app/json/`)
-                    .then(json => {
-                        position = {
-                            state: json.region_name,
-                            city: json.city,
-                            country: json_country_code,
-                            latitude: json.latitude,
-                            longitude: json.longitude
-                        }; return [position, false]
-                    }).catch(() => {
-                        return [position, false];
-                    })
-            })
-
-    }
-
-    Permissions.askAsync(Permissions.LOCATION).then((status) => {
-        // User permitted to get fine location. That's good.
-        if (status === 'granted') {
-            Location.getCurrentPositionAsync({}).then((position) => {
-                console.log(position);
-                return [position, true];
-            }).catch(() => {
-                return getGeoIp();
-            })
-        }
-
-        // User denied. We need to get approx IP based location.
-        else {
-            return getGeoIp();
-        }
-    });
-}
-
-
-const prepareReport = (symptomatic, testResult) => {
+const sendReport = (symptomatic, testResult) => {
     const report = {
         deviceId: Constants.installationId,
         symptomatic: symptomatic,
@@ -67,57 +17,50 @@ const prepareReport = (symptomatic, testResult) => {
         testResult: testResult,
         ipAddress: null,
         location: null,
-        locationFine: null,
-    }
-    const callback = () => {
-        if (
-            report.ipAddress &&
-            report.location && 
-            report.locationFine
-        ) {
-            return true;
-        } else { return false; }
+        locationFine: false,
     }
 
-    publicIP().then((ipAddress) => { report.ipv4 = ipAddress });
-    Location.getCurrentPositionAsync({}).then((position)=>{ report.location = position; report.locationFine = true; })
-
-}
-
-
-const sendReport = (symptomatic, testResult) => {
-    let success = false;
-    let ipv4 = null;
     publicIP().then((ipAddress) => {
-        console.log(ipAddress);
-        let [location, fine] = getLocation(ipAddress);
+        report.ipAddress = ipAddress;
+        console.log("Got IP.", ipAddress)
+        Location.getCurrentPositionAsync({}).then((position) => {
+            console.log("Got location.", position)
+            report.location = position;
+            report.locationFine = true;
+            console.log("Report ready.", report)
+            firestore.collection("reported/overall/cases").add(report);
+        }).catch((e) => {
+            let position = { longitude: 0, latitude: 0 }
+            fetch(`https://freegeoip.app/json/`)
+                .then(response => {
+                    response.json().then((json) => {
+                        position = {
+                            state: json.region_name,
+                            city: json.city,
+                            country: json.country_code,
+                            latitude: json.latitude,
+                            longitude: json.longitude
+                        };
+                        report.location = position;
+                        firestore.collection("reported/overall/cases").add(report);
+                    })
+                        .catch((e) => {
+                            console.log("Error", e);
+                            report.location = position;
+                            firestore.collection("reported/overall/cases").add(report);
+                        })
+                })
 
-        const report = {
-            deviceId: Constants.installationId,
-            symptomatic: symptomatic,
-            createdAt: Date.now(),
-            testResult: testResult,
-            ipAddress: ipAddress,
-            location: location,
-            locationFine: fine,
-        }
-        console.log(report);
+        })
+    });
 
-        // Put data to suitable collection
-        firestore.collection("reported/overall/cases").add(report)
-            .then((docRef) => { success = true; })
-            .catch(() => { success = false; })
-
-        return success;
-    })
 }
-
 
 class SelfReport extends Component {
     state = {
-        visible: true,
-        symptomatic: -1,
-        testResult: null,
+        visible: false,
+        symptomatic: 0,
+        testResult: "notTested",
     }
     render() {
         return (
@@ -141,6 +84,8 @@ class SelfReport extends Component {
                                 text="Send"
                                 onPress={() => {
                                     sendReport(this.state.symptomatic, this.state.testResult);
+                                    this.setState({visible: false})
+                                    // TODO show feedback
                                 }}
                             />
                         </ModalFooter>)
