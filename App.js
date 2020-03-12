@@ -13,7 +13,6 @@ export default class App extends React.Component {
       { key: 'map', title: 'Map', icon: 'map' },
       { key: 'feeds', title: 'Feeds', icon: 'newspaper' },
       { key: 'avoid', title: 'Avoidance', icon: 'shield' },
-      { key: 'symptoms', title: 'Symptoms', icon: 'cloud' },
       { key: 'chat', title: 'Chat', icon: 'message' },
     ],
   }

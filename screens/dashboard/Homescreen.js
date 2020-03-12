@@ -27,6 +27,7 @@ class Homescreen extends React.Component {
                 <RegionSelector />
                 <TopOverviewCards />
                 <CasesListView />
+                <SelfReport />
             </View>
         );
     }
