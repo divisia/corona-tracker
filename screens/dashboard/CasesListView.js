@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button, Divider, ListItem, Header, Badge } from 'react-native-elements'
 import { DatabaseContext } from "../../components/DatabaseContext";
+import i18n from 'i18n-js';
 
 
 const NA = "N/A";
@@ -18,7 +19,7 @@ class CasesListView extends React.Component {
                     return (
                         <View style={styles.cases}>
                             <ListItem
-                                title="Reported Symptomatic Positive"
+                                title={i18n.t('reportedSymptomaticPositive')}
                                 rightElement={(<Text>{loading ? NA : reported.data.positive.now}</Text>)}
                                 containerStyle={styles.caseItems}
                                 bottomDivider
@@ -26,7 +27,7 @@ class CasesListView extends React.Component {
                                 contentContainerStyle={{ paddingHorizontal: 10 }}
                             />
                             <ListItem
-                                title="Reported Symptomatic Negative"
+                                title={i18n.t('reportedSymptomaticNegative')}
                                 rightElement={(<Text>{loading ? NA : reported.data.negative.now}</Text>)}
                                 containerStyle={styles.caseItems}
                                 bottomDivider

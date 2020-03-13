@@ -19,11 +19,12 @@ const openUrl = () => {
 
 class Feed extends React.Component {
     render() {
-        const { thumbnail_url, feed_url, header, origin_url } = this.props.feed;
+        console.log(this.props.feed);
+        const { addedAt, thumbnail_url, feed_url, header, origin_url } = this.props.feed;
         return (
             <ListItem
                 title={header}
-                subtitle={origin_url}
+                subtitle={new Date(addedAt.seconds*1000).toLocaleDateString() + " - " + origin_url}
                 leftElement={<Image source={{ uri: thumbnail_url }} style={styles.feedThumbnail}/>}
                 onPress={()=>{Linking.openURL(feed_url)}} />
         )
@@ -48,7 +49,7 @@ class Feeds extends React.Component {
                         </View>
                     )
                     return (
-                        <View style={styles.feed}>
+                        <View style={styles.feedsContainer}>
                             {feeds.data.map((feed, i) => {
                                 return <Feed key={feed.feed_url} feed={feed} />
                             })}
@@ -61,8 +62,11 @@ class Feeds extends React.Component {
 
 const styles = StyleSheet.create({
     feed: {
-        margin: 0,
-        padding: 10,
+        width:"100%"
+    },
+    feedsContainer:{
+        margin:0,
+        padding:10,
     },
     feedHeader: {
     },

@@ -2,6 +2,7 @@ import React, { useState, Component } from 'react'
 import { View, Text, StyleSheet, Button, FlatList } from 'react-native'
 import { Card } from 'react-native-elements';
 import { DatabaseContext } from '../../components/DatabaseContext';
+import i18n from 'i18n-js'
 
 
 const valueCheck = (value) => {
@@ -21,17 +22,17 @@ class TopOverviewCards extends Component {
                     return (
                         <View style={styles.overviewCardGroup}>
                             <View style={styles.overviewCard}>
-                                <Text>Deaths</Text>
+                                <Text>{i18n.t('deaths')}</Text>
                                 <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.dead.now}</Text>
                             </View>
-                            <View style={styles.overViewCardDivider}/>
+                            <View style={styles.overViewCardDivider} />
                             <View style={styles.overviewCard}>
-                                <Text>Infections</Text>
+                                <Text>{i18n.t('infections')}</Text>
                                 <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.infected.now}</Text>
                             </View>
-                            <View style={styles.overViewCardDivider}/>
+                            <View style={styles.overViewCardDivider} />
                             <View style={styles.overviewCard}>
-                                <Text>Recoveries</Text>
+                                <Text>{i18n.t('recoveries')}</Text>
                                 <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.recovered.now}</Text>
                             </View>
                         </View>
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
         flex: 2,
         flexDirection: "row",
         justifyContent: "center",
-        borderColor:"transparent",
-        borderWidth:2,
+        borderColor: "transparent",
+        borderWidth: 2,
     },
     overviewCard: {
         alignItems: "center",

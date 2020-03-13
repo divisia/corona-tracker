@@ -5,6 +5,7 @@ import { ListItem } from 'react-native-elements';
 import { DatabaseContext } from '../../components/DatabaseContext';
 import ModalContent from 'react-native-modals/dist/components/ModalContent';
 import { List } from 'react-native-paper';
+import i18n from 'i18n-js';
 
 
 const NA = "N/A"
@@ -27,7 +28,7 @@ class RegionSelector extends Component {
                         <View style={styles.regionSelectorWrapper}>
 
                             <TouchableOpacity onPress={() => { this.setState({ visible: true }) }}>
-                                <View style={styles.button}><Text>Region: {context.cases.loading ? NA : context.filter.length == 0 ? "Earth" : context.filter.join(", ")}</Text></View>
+                                <View style={styles.button}><Text>{i18n.t('region')}: {context.cases.loading || context.filter.length == 0 ? NA : context.filter.join(", ")}</Text></View>
                             </TouchableOpacity>
 
 
@@ -46,7 +47,6 @@ class RegionSelector extends Component {
                                                     containerStyle={styles.subregionContainer}
                                                     title={region}
                                                     onPress={() => {
-                                                        console.log("setting filter", region);
                                                         context.alterFilter(context.filter.length == 0 ? region : context.filter.join(":") + ":" + region)
                                                     }}
                                                 />

@@ -7,6 +7,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import Constants, { installationId } from 'expo-constants';
 import publicIP from 'react-native-public-ip';
+import i18n from 'i18n-js';
 
 
 const sendReport = (symptomatic, testResult) => {
@@ -65,9 +66,9 @@ class SelfReport extends Component {
     render() {
         return (
             <View style={styles.selfReportWrapper}>
-                <Text>Would you like to help us tracing COVID-19?</Text>
+                <Text>{i18n.t('selfReportOffer')}</Text>
                 <View style={styles.button}>
-                <Button title="Sure" onPress={() => { this.setState({ visible: true }) }} />
+                <Button title={i18n.t('selfReportButton')} onPress={() => { this.setState({ visible: true }) }} />
                 </View>
                 
 

@@ -5,13 +5,14 @@ import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-ic
 import DatabaseContextProvider, { DatabaseContext } from "./components/DatabaseContext";
 import { MapScreen, FeedsScreen, ChatScreen, DashboardScreen, VirusInfoScreen } from "./screens/Screens";
 import { Header } from "react-native-elements";
-
+import "./translations/translations"
+import i18n from 'i18n-js'
 
 export default class App extends React.Component {
   state = {
-    index: 3,
+    index: 0,
     routes: [
-      { key: 'dashboard', title: 'Dashboard', icon: 'home' },
+      { key: 'dashboard', title: i18n.t('dashboard'), icon: 'home' },
       { key: 'map', title: 'Map', icon: 'map' },
       { key: 'feeds', title: 'Feeds', icon: 'newspaper' },
       { key: 'virusinfo', title: 'COVID-19', icon: 'atom' },
@@ -33,7 +34,7 @@ export default class App extends React.Component {
     return (
       <DatabaseContextProvider>
         <View style={{ alignItems: "stretch", justifyContent: "center", flex: 1 }}>
-          <Header containerStyle={styles.header} centerComponent={<View style={styles.headerTitleWrapper}><Text style={styles.headerTitle}>Track COVID-19</Text></View>}></Header>
+          <Header containerStyle={styles.header} centerComponent={<View style={styles.headerTitleWrapper}><Text style={styles.headerTitle}>{i18n.t('appHeader')}</Text></View>}></Header>
           <BottomNavigation
             barStyle={{ backgroundColor: "#f81b4b" }}
             navigationState={this.state}
