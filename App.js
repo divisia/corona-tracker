@@ -6,6 +6,7 @@ import DatabaseContextProvider, { DatabaseContext } from "./components/DatabaseC
 import { MapScreen, FeedsScreen, ChatScreen, DashboardScreen, VirusInfoScreen } from "./screens/Screens";
 import { Header } from "react-native-elements";
 import "./translations/translations"
+import * as Font from 'expo-font';
 import i18n from 'i18n-js'
 
 export default class App extends React.Component {
@@ -18,6 +19,10 @@ export default class App extends React.Component {
       { key: 'virusinfo', title: 'COVID-19', icon: 'atom' },
       { key: 'chat', title: 'Chat', icon: 'message' },
     ],
+  }
+
+  async componentDidMount() {
+
   }
 
   _handleIndexChange = (index) => this.setState({ index });
@@ -57,8 +62,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 24,
-    color:"#ededed",
-    fontFamily:"Montserrat-ExtraBold"
+    color: "#ededed",
   },
   headerTitleWrapper: {
     alignItems: "center",

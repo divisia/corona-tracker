@@ -28,7 +28,7 @@ class RegionSelector extends Component {
                         <View style={styles.regionSelectorWrapper}>
 
                             <TouchableOpacity onPress={() => { this.setState({ visible: true }) }}>
-                                <View style={styles.button}><Text>{i18n.t('region')}: {context.cases.loading || context.filter.length == 0 ? NA : context.filter.join(", ")}</Text></View>
+                                <View style={styles.button}><Text>{i18n.t('region')}: {context.cases.loading || context.filter.length == 0 ? NA : context.filter.map((reg)=>{return i18n.t(reg)}).join(", ")}</Text></View>
                             </TouchableOpacity>
 
 
@@ -45,7 +45,7 @@ class RegionSelector extends Component {
                                                 <ListItem
                                                     key={Math.random().toString()}
                                                     containerStyle={styles.subregionContainer}
-                                                    title={region}
+                                                    title={i18n.t(region)}
                                                     onPress={() => {
                                                         context.alterFilter(context.filter.length == 0 ? region : context.filter.join(":") + ":" + region)
                                                     }}

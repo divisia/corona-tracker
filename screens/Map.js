@@ -6,7 +6,7 @@ import { DatabaseContext } from '../components/DatabaseContext';
 
 const checkMapAvailability = () => {
     const mapsScriptLoaded = typeof google !== 'undefined'
-    return navigator.onLine;
+    return mapsScriptLoaded;
 }
 
 const layers = {
@@ -30,38 +30,15 @@ for (var la in layers) {
     layersArray.push(layers[la])
 }
 
-const Legends = (props) => {
+const Legend = (props) => {
     return (
         <View style={styles.legendsContainer}>
-            {layersArray.map((layer) => {
-                return (
-                    <View key={layer}>
+            <View key={Math.random.toString()}>
                         <TouchableOpacity style={styles.legends} onPress={() => { props.toggleLayer(layer) }}>
-                            <Text>{layer.replace(/([A-Z])/g, ' $1')
-                                .replace(/^./, function (str) { return str.toUpperCase(); })}</Text>
+                            <Text>{""}</Text>
                         </TouchableOpacity>
                     </View>
-                );
-            })}
-
         </View>
-    );
-}
-
-
-const WrappedHeatmap = (props) => {
-    return (
-        typeof Heatmap === 'undefined'
-            ? (null)
-            : <MapView.Heatmap
-                points={props.points}
-                radius={40}
-                gradient={{
-                    colors: heatColors[props.layer],
-                    startPoints: [0, 0.3, 1],
-                    colorMapSize: 30,
-                }}
-            />
     );
 }
 
@@ -80,7 +57,7 @@ class Map extends Component {
 
     render() {
         const mapAvailable = checkMapAvailability();
-        if (false && !mapAvailable) {
+        if (!mapAvailable) {
             // The screen when map is not available, offline etc.
             return (
                 <View style={styles.homescreen}>
@@ -96,7 +73,7 @@ class Map extends Component {
                 {(context) => {
                     return (
                         <View style={styles.center}>
-                            <Legends
+                            <Legend
                                 toggleLayer={this.toggleLayer} />
                             <View style={styles.mapWrapper}>
                                 <MapView
@@ -108,20 +85,6 @@ class Map extends Component {
                                         longitudeDelta: 60,
                                     }}
                                     provider={PROVIDER_GOOGLE}>
-                                    {context.heatmap === null
-                                        ? null
-                                        : this.state.visibleLayers.map((layer) => {
-                                            return (
-                                                typeof context.heatmap[layer] === 'undefined' || context.heatmap[layer].length == 0 ? null :
-                                                    <WrappedHeatmap
-                                                        key={layer}
-                                                        layer={layer}
-                                                        points={context.heatmap[layer].points} />
-                                            );
-                                        })}
-
-
-
                                 </MapView>
                             </View>
                         </View>

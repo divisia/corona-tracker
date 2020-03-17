@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image, ScrollView } from 'react-native';
 import { getMediaUri } from "../utilities/constants";
-import * as Font from 'expo-font';
 
 
 export default class VirusInfo extends Component {
-    async componentDidMount(){
-        await Font.loadAsync({
-            'Montserrat-ExtraBold': require('../assets/fonts/Montserrat/Montserrat-ExtraBold.ttf'),
-          });
-    }
     render() {
         return (
             <ScrollView contentContainerStyle={styles.container}>
@@ -173,7 +167,6 @@ const styles = StyleSheet.create({
     },
     header: {
         fontSize: 20,
-        fontFamily:"Montserrat-ExtraBold",
     },
     headerWrapper:{
         alignItems:"flex-start",

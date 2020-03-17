@@ -2,7 +2,7 @@ import React, { Component, createContext } from 'react'
 import { View, AsyncStorage } from 'react-native';
 import firestore from "./Firestore";
 
-
+const NA = "N/A";
 export const DatabaseContext = createContext();
 export default class DatabaseContextProvider extends Component {
 
@@ -10,7 +10,7 @@ export default class DatabaseContextProvider extends Component {
 
     state = {
         filter: [],
-        heatmap:null,
+        heatmap: null,
         feeds: {
             loading: true,
             data: []
@@ -18,12 +18,25 @@ export default class DatabaseContextProvider extends Component {
         reported: {
             loading: true,
             query: "reported/overall",
-            data: {}
+            data: {
+                asympLow:NA,
+                asympMedium:NA,
+                sympLow:NA,
+                sympMedium:NA,
+                sympHigh:NA,
+            }
         },
         cases: {
             loading: true,
             query: "cases/overall",
-            data: {}
+            data: {
+                dataSources:[],
+                subregions:[],
+                deaths:NA,
+                infections:NA,
+                recoveries:NA,
+                lastUpdate:NA,
+            }
         },
     }
 
@@ -66,17 +79,31 @@ export default class DatabaseContextProvider extends Component {
     // Firestore listeners
     feedsListener = (snapshot) => {
         const feedlist = [];
-        snapshot.forEach((doc) => feedlist.push({ ...doc.data(), id: doc.id }))
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            // Check if data may cause crash because of unfunfilled fields.
+            if (typeof data.feed_url === 'undefined' 
+            || typeof data.origin_url === 'undefined'
+            || typeof data.thumbnail_url === 'undefined'
+            || typeof data.header === 'undefined') { /* reserved */ }
+            else { feedlist.push({ ...data, id: doc.id }) }
+            
+        })
         this.setState({ feeds: { data: feedlist, loading: false } })
     }
     reportedListener = (snapshot) => {
-        let reportedData = undefined;
+        let reportedData = this.state.reported.data;
         let loading = false;
         if (!snapshot.exists || typeof snapshot === 'undefined') {
-            console.log("Reported data cannot be found for selected filter.")
-            loading =true;
+            loading = true;
         } else {
             reportedData = snapshot.data();
+            // Check if data may cause crash because of unfunfilled fields.
+            if (typeof reportedData.sympHigh === 'undefined') reportedData.sympHigh = NA;
+            if (typeof reportedData.sympMedium === 'undefined') reportedData.sympMedium = NA;
+            if (typeof reportedData.sympLow === 'undefined') reportedData.sympLow = NA;
+            if (typeof reportedData.asympMedium === 'undefined') reportedData.asympMedium = NA;
+            if (typeof reportedData.asympLow === 'undefined') reportedData.asympLow = NA;
         }
         this.setState({
             reported: {
@@ -87,25 +114,41 @@ export default class DatabaseContextProvider extends Component {
         })
     }
     casesListener = (snapshot) => {
-        let casesData = undefined;
+        let casesData = this.state.cases.data;
+        let loading;
         if (!snapshot.exists || typeof snapshot === 'undefined') {
-            console.log("Cases data cannot be found for selected filter.")
+            loading = true;
         } else {
             casesData = snapshot.data();
+            if (typeof casesData.subregions === 'undefined') casesData.subregions = [];
+            if (typeof casesData.dataSources === 'undefined') casesData.dataSources = [];
+            if (typeof casesData.deaths === 'undefined') casesData.deaths = NA;
+            if (typeof casesData.infections === 'undefined') casesData.infections = NA;
+            if (typeof casesData.recoveries === 'undefined') casesData.recoveries = NA;
+            if (typeof casesData.lastUpdate === 'undefined') casesData.lastUpdate = NA;
+            loading = false;
         }
         this.setState({
             cases: {
                 ...this.state.cases,
-                data: snapshot.data(),
-                loading: false,
+                data: casesData,
+                loading: loading,
             }
         })
     }
     heatmapListener = (snapshot) => {
-        if (typeof snapshot === 'undefined'){ console.log("Heatmap snapshot is undefined."); return; }
-        const heatmap  = {};
-        snapshot.forEach((pointArray)=>{ heatmap[pointArray.id]=pointArray.data(); })
-        this.setState({heatmap:heatmap});
+        if (typeof snapshot === 'undefined') {
+             return; 
+        }
+        const heatmap = {};
+        let points;
+        snapshot.forEach((pointArray) => { 
+            const pointArrayData = pointArray.data();
+            if (typeof pointArrayData.points === 'undefined') { points = []; }
+            else { points = pointArrayData; }
+            heatmap[pointArray.id] = points;
+        })
+        this.setState({ heatmap: heatmap });
     }
 
     loadSavedFilter = async () => {

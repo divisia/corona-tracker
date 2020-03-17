@@ -11,8 +11,12 @@ i18n.translations = {
         selfReportOffer:"Would you like to help us tracing COVID-19?",
         selfReportButton:"Sure",
         dashboard:"Dashboard",
-        reportedSymptomaticPositive:"Reported Symptomatic - Positive Tested",
-        reportedSymptomaticNegative:"Reported Symptomatic - Negative Tested",
+        sympHigh:"Symptomatic - High Risk",
+        sympMedium:"Symptomatic - Medium Risk",
+        sympLow:"Symptomatic - Low Risk",
+        asympMedium:"Asymptomatic - Medium Risk",
+        asympLow:"Asymptomatic - Low Risk",
+        cn:"Switzerland"
     },
     tr:{
         appHeader:"COVID-19 Takip",
@@ -33,7 +37,10 @@ i18n.translations = {
         infections:"Infektionen",
         recoveries:"Genesungen",
         dashboard:"General",
-        region:"Region"
+        region:"Region",
+
+        cn:"Schweiz",
+        valais:"Valais"
     }
 }
 i18n.locale = "de-DE"
