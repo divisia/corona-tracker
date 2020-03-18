@@ -15,15 +15,16 @@ import { Ionicons } from "@expo/vector-icons"
 const countries = require("i18n-iso-countries");
 
 
-const infoIcon = (<Ionicons name="md-information-circle-outline" size={16} color={"darkgray"} />)
+const infoIcon = (<Ionicons style={{ margin: 2 }} name="md-information-circle-outline" size={16} color={"darkgray"} />)
 
-
-const sendReport = (symptomatic, testResult) => {
+const sendReport = (symptomatic, testResult, visitedCountries, potentialContact) => {
     const report = {
         deviceId: Constants.installationId,
         symptomatic: symptomatic,
         createdAt: Date.now(),
         testResult: testResult,
+        visitedCountries: visitedCountries,
+        potentialContact: potentialContact,
         ipAddress: null,
         location: null,
         locationFine: false,
@@ -32,13 +33,16 @@ const sendReport = (symptomatic, testResult) => {
     publicIP().then((ipAddress) => {
         report.ipAddress = ipAddress;
         console.log("Got IP.", ipAddress)
-        Location.getCurrentPositionAsync({}).then((position) => {
-            console.log("Got location.", position)
-            report.location = position;
-            report.locationFine = true;
-            console.log("Report ready.", report)
-            firestore.collection("reported/overall/cases").add(report);
+        Permissions.askAsync(Permissions.LOCATION).then((status) => {
+            console.log("ACCESS", status)
+            if (status !== 'granted') { throw Error("Fine location access denied."); }
+            Location.getCurrentPositionAsync({}).then((position) => {
+                report.location = position;
+                report.locationFine = true;
+                firestore.collection("reported/overall/cases").add(report);
+            }).catch((e) => { console.log("fallback", e) })
         }).catch((e) => {
+            console.log("fallback", e)
             let position = { longitude: 0, latitude: 0 }
             fetch(`https://freegeoip.app/json/`)
                 .then(response => {
@@ -51,6 +55,7 @@ const sendReport = (symptomatic, testResult) => {
                             longitude: json.longitude
                         };
                         report.location = position;
+                        console.log("fallback", e)
                         firestore.collection("reported/overall/cases").add(report);
                     })
                         .catch((e) => {
@@ -61,20 +66,28 @@ const sendReport = (symptomatic, testResult) => {
                 })
 
         })
-    });
+    }).catch((e)=>{});
 
 }
 
 class SelfReport extends Component {
     state = {
-        visible: false,
+        visible: true,
         countryListVisible: false,
-        symptomatic: 0,
-        testResult: "notTested",
+        symptomatic: -2,
+        testResult: null,
         visitedCountries: [],
+        potentialContact: null,
+        infoModalText: "",
+        infoModalVisible: false,
     }
     render() {
-        const { visitedCountries } = this.state;
+        const { infoModalVisible,
+            infoModalText,
+            visitedCountries,
+            potentialContact,
+            symptomatic,
+            testResult } = this.state;
         return (
             <View style={styles.selfReportWrapper}>
                 <Text>{i18n.t('selfReportOffer')}</Text>
@@ -94,11 +107,22 @@ class SelfReport extends Component {
                         (<ModalFooter
                             style={{ margin: 0, padding: 0, flexDirection: "row", height: 40, alignItems: "center", justifyContent: "center" }}>
 
-                            <Button title="Option"
-                                style={{
-                                    margin: 0, padding: 0, flex: 1, width: "100%", height: "100%",
-                                    justifyContent: "center", alignItems: "center"
-                                }} />
+                            <View style={{ height: "100%", marginHorizontal: 10 }}>
+                                <Button title="Cancel"
+                                    style={{
+                                        margin: 0, padding: 0, flex: 1, width: "100%", height: "100%",
+                                        justifyContent: "center", alignItems: "center"
+                                    }}
+                                    onPress={() => { this.setState({ visible: false }) }} />
+                            </View>
+                            <View style={{ height: "100%", marginHorizontal: 10 }}>
+                                <Button title="Send"
+                                    style={{
+                                        margin: 0, padding: 0, flex: 1, width: "100%", height: "100%",
+                                        justifyContent: "center", alignItems: "center"
+                                    }}
+                                    onPress={() => { sendReport(symptomatic, testResult, visitedCountries, potentialContact); this.setState({ visible: false }) }} />
+                            </View>
 
                         </ModalFooter>)
                     }
@@ -109,25 +133,25 @@ class SelfReport extends Component {
                         <View style={styles.modalWrapper}>
                             <View style={styles.questionSymptomatic}>
                                 <Text>Are you having symptoms?</Text>
-                                <View style={styles.answer}>
-
-                                    <View>
-                                        <RadioButton
-                                            value="yes"
-                                            status={this.state.symptomatic === 1 ? 'checked' : 'unchecked'}
-                                            onPress={() => { this.setState({ symptomatic: 1 }) }} />
+                                <View style={{ flexDirection: "row" }}>
+                                    <View style={styles.answer}>
+                                        <View>
+                                            <RadioButton
+                                                value="yes"
+                                                status={this.state.symptomatic === 1 ? 'checked' : 'unchecked'}
+                                                onPress={() => { this.setState({ symptomatic: 1 }) }} />
+                                        </View>
+                                        <Text>Yes</Text>
                                     </View>
-                                    <Text>Yes</Text>
-
-                                </View>
-                                <View style={styles.answer}>
-                                    <View>
-                                        <RadioButton
-                                            value="no"
-                                            status={this.state.symptomatic === 0 ? 'checked' : 'unchecked'}
-                                            onPress={() => { this.setState({ symptomatic: 0 }) }} />
+                                    <View style={styles.answer}>
+                                        <View>
+                                            <RadioButton
+                                                value="no"
+                                                status={this.state.symptomatic === 0 ? 'checked' : 'unchecked'}
+                                                onPress={() => { this.setState({ symptomatic: 0 }) }} />
+                                        </View>
+                                        <Text>No</Text>
                                     </View>
-                                    <Text>No</Text>
                                 </View>
                             </View>
                         </View>
@@ -170,7 +194,7 @@ class SelfReport extends Component {
                         <View style={{ margin: 4 }}>
                             <Text>{i18n.t('visitedCountriesQuestion')}</Text>
                             <TouchableOpacity onPress={() => { this.setState({ countryListVisible: true }) }}>
-                                <View style={{ justifyContent: "center", alignItems: "center", margin: 6, padding: 2, borderColor: "#444", borderWidth: 1 }}>
+                                <View style={{ justifyContent: "center", alignItems: "center", margin: 6, padding: 2, borderColor: "#444", borderWidth: 1, borderRadius: 10 }}>
                                     <Text>{this.state.visitedCountries.length == 0
                                         ? i18n.t('visitedCountriesInitialText') :
                                         this.state.visitedCountries.length.toString() + " " + i18n.t('countriesSelected')}
@@ -179,26 +203,29 @@ class SelfReport extends Component {
                             </TouchableOpacity>
                         </View>
                         {/* Contact with infected person question */}
-                        <View>
-                            <TouchableOpacity style={{ flexDirection: "row" }}
-                                onPress={() => { }}>
-                                <Text>Did you have contact with a potantial coronavirus infected person?</Text>
-                                {infoIcon}
+                        <View style={{ flexWrap: 'wrap' }}>
+                            <TouchableOpacity style={{ flexDirection: "row", justifyContent: "center" }}
+                                onPress={() => { this.setState({ infoModalVisible: true, infoModalText: "Persons with symptoms or persons you know were travelling to the affected areas." }) }}>
+                                <Text>Did you have contact with a potantial coronavirus infected person?{infoIcon}</Text>
+
 
                             </TouchableOpacity>
-                            <View>
-                                <View>
-                                    <RadioButton />
+                            <View style={{ flexDirection: "row" }}>
+                                <TouchableOpacity onPress={() => { this.setState({ potentialContact: "yes" }) }}
+                                    style={{ flexDirection: "row", alignItems: "center" }}>
+                                    <RadioButton status={potentialContact === 'yes' ? 'checked' : 'unchecked'} />
                                     <Text>Yes</Text>
-                                </View>
-                                <View>
-                                    <RadioButton />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => { this.setState({ potentialContact: "no" }) }}
+                                    style={{ flexDirection: "row", alignItems: "center" }}>
+                                    <RadioButton status={potentialContact === 'no' ? 'checked' : 'unchecked'} />
                                     <Text>No</Text>
-                                </View>
-                                <View>
-                                    <RadioButton />
-                                    <Text>I don't know</Text>
-                                </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => { this.setState({ potentialContact: "dk" }) }}
+                                    style={{ flexDirection: "row", alignItems: "center" }}>
+                                    <RadioButton status={potentialContact === 'dk' ? 'checked' : 'unchecked'} />
+                                    <Text>Don't know</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </ModalContent>
@@ -219,7 +246,7 @@ class SelfReport extends Component {
                                 {countryCodes.map((ccode) => {
                                     return (
                                         <TouchableOpacity
-                                            style={{ flexDirection: "row", margin: 2 }}
+                                            style={{ flexDirection: "row", margin: 1, alignItems: "center" }}
                                             onPress={() => {
                                                 if (!visitedCountries.includes(ccode)) {
                                                     this.setState({ visitedCountries: [...this.state.visitedCountries, ccode.toLowerCase()] })
@@ -235,11 +262,19 @@ class SelfReport extends Component {
                                                 status={this.state.visitedCountries.includes(ccode.toLowerCase()) ? "checked" : "unchecked"}
                                                 onPress={() => { }}
                                             />
-                                            <Text>{countries.getName(ccode, "en")}</Text>
+                                            <Text>{countries.getName(ccode, i18n.currentLocale().substr(0, 2))}</Text>
                                         </TouchableOpacity>
                                     );
                                 })}
                             </ScrollView>
+                        </View>
+                    </ModalContent>
+                </Modal>
+                <Modal visible={infoModalVisible}
+                    onTouchOutside={() => { this.setState({ infoModalVisible: false }) }}>
+                    <ModalContent>
+                        <View style={styles.absoluteCenter}>
+                            <Text>{infoModalText}</Text>
                         </View>
                     </ModalContent>
                 </Modal>

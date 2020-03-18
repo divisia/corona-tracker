@@ -1,16 +1,17 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button, Image } from 'react-native'
 import { getMediaUri } from '../utilities/constants'
+import { ScrollView } from 'react-native-gesture-handler';
+import { sentNotifications } from "../notifications/notificationRegisterer";
 
 
 const Chat = (props) => {
     const { navigation } = (props);
     return (
         <View style={styles.homescreen}>
-            <Image
-                style={{ width: 210, height: 250}}
-                source={{ uri: getMediaUri("under_construction.png") }}
-            />
+            <ScrollView>
+                {sentNotifications}
+            </ScrollView>
         </View>
     );
 };

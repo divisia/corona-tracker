@@ -1,8 +1,8 @@
 import React, { Component, useContext } from 'react'
-import { View, Text, StyleSheet, Button, TouchableOpacity, StatusBar } from 'react-native'
-import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { ClusterMap } from "react-native-cluster-map";
+import { View, Text, StyleSheet, Button, TouchableOpacity, StatusBar, Platform } from 'react-native'
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { DatabaseContext } from '../components/DatabaseContext';
+Platform.OS !== 'web' ? ClusterMap = require("react-native-cluster-map") : null;
 
 
 const checkMapAvailability = () => {
@@ -74,24 +74,28 @@ class Map extends Component {
                 {(context) => {
                     return (
                         <View style={styles.center}>
-                            <Legend
-                                toggleLayer={this.toggleLayer} />
-                            <View style={styles.mapWrapper}>
-                                <ClusterMap
-                                    style={{ width: "100%", height: "100%" }}
-                                    region={{
-                                        latitude: 38.9637,
-                                        longitude: 35.2433,
-                                        latitudeDelta: 30,
-                                        longitudeDelta: 60,
-                                    }}
-                                    provider={PROVIDER_GOOGLE}>
-                                    <Marker coordinate={{ latitude: 37.78725, longitude: -122.434 }} />
-                                    <Marker coordinate={{ latitude: 37.789, longitude: -122.431 }} />
-                                    <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }} />
-                                </ClusterMap>
-                            </View>
+                            {Platform.OS !== 'web' ?
+                                <View style={styles.mapWrapper}>
+
+                                    <ClusterMap
+                                        style={{ width: "100%", height: "100%" }}
+                                        region={{
+                                            latitude: 38.9637,
+                                            longitude: 35.2433,
+                                            latitudeDelta: 30,
+                                            longitudeDelta: 60,
+                                        }}
+                                        provider={PROVIDER_GOOGLE}>
+                                        <Marker coordinate={{ latitude: 37.78725, longitude: -122.434 }} />
+                                        
+                                    </ClusterMap>
+
+                                </View>
+                                : <View style={{ textAlign: "center", alignItems: "center", justifyContent: "center" }}>
+                                    <Text style={{ fontSize: 20 }}>We cannot provide map for web. Sorry for inconvenience.</Text>
+                                </View>}
                         </View>
+
                     )
                 }}
             </DatabaseContext.Consumer>

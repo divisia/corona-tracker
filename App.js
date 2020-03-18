@@ -1,3 +1,4 @@
+import "./translations/translations"
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { BottomNavigation } from 'react-native-paper'
@@ -5,9 +6,10 @@ import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-ic
 import DatabaseContextProvider, { DatabaseContext } from "./components/DatabaseContext";
 import { MapScreen, FeedsScreen, ChatScreen, DashboardScreen, VirusInfoScreen } from "./screens/Screens";
 import { Header } from "react-native-elements";
-import "./translations/translations"
+import * as Permissions from 'expo-permissions';
 import * as Font from 'expo-font';
 import i18n from 'i18n-js'
+import { fireNotification } from './notifications/notificationRegisterer';
 
 export default class App extends React.Component {
   state = {
@@ -22,7 +24,7 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
-
+    await Permissions.askAsync(Permissions.NOTIFICATIONS);
   }
 
   _handleIndexChange = (index) => this.setState({ index });

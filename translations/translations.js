@@ -54,5 +54,4 @@ i18n.translations = {
     }
 }
 i18n.locale = "de-DE"
-console.log(Localization.locale)
 i18n.fallbacks = true;
