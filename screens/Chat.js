@@ -10,7 +10,11 @@ const Chat = (props) => {
     return (
         <View style={styles.homescreen}>
             <ScrollView>
-                {sentNotifications}
+                {sentNotifications.forEach((no)=>{
+                    <View>
+                        <Text>{no.title}</Text>
+                    </View>
+                })}
             </ScrollView>
         </View>
     );
