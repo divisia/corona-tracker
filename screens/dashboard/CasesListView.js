@@ -8,6 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const NA = "N/A";
+const infoIcon = (<Ionicons name="md-information-circle-outline" size={16} color={"darkgray"} />)
 
 
 class CasesListView extends React.Component {
@@ -20,9 +21,9 @@ class CasesListView extends React.Component {
                     const loading = reported.loading;
                     return (
                         <View style={styles.cases}>
-                            <TouchableOpacity style={{ flexDirection: "row", padding: 3 }}>
-                                <Text style={{ color: "darkgray" }}>Self reported</Text>
-                                <Ionicons name="md-information-circle-outline" size={10} color={"darkgray"} />
+                            <TouchableOpacity style={{ flexDirection: "row", padding: 3, marginLeft:2 }}>
+                                <Text style={{ color: "#777" }}>{i18n.t('selfReport')}</Text>
+                                {infoIcon}
                             </TouchableOpacity>
                             <ListItem
                                 leftElementStyle={styles.caseTitle}
@@ -31,7 +32,7 @@ class CasesListView extends React.Component {
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ margin: 4, backgroundColor: "brown", width: 12, height: 12 }} />
                                         <Text>{i18n.t('sympHigh')}</Text>
-                                        <Ionicons name="md-information-circle-outline" size={10} color={"darkgray"} />
+                                        {infoIcon}
                                     </View>}
                                 containerStyle={styles.caseItems}
                                 bottomDivider
@@ -45,7 +46,7 @@ class CasesListView extends React.Component {
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ margin: 4, backgroundColor: "cyan", width: 12, height: 12 }} />
                                         <Text>{i18n.t('sympMedium')}</Text>
-                                        <Ionicons name="md-information-circle-outline" size={10} color={"darkgray"} />
+                                        {infoIcon}
                                     </View>}
                                 containerStyle={styles.caseItems}
                                 bottomDivider
@@ -59,7 +60,7 @@ class CasesListView extends React.Component {
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ margin: 4, backgroundColor: "purple", width: 12, height: 12 }} />
                                         <Text>{i18n.t('sympLow')}</Text>
-                                        <Ionicons name="md-information-circle-outline" size={10} color={"darkgray"} />
+                                        {infoIcon}
                                     </View>}
                                 containerStyle={styles.caseItems}
                                 bottomDivider
@@ -73,7 +74,7 @@ class CasesListView extends React.Component {
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ margin: 4, backgroundColor: "gold", width: 12, height: 12 }} />
                                         <Text>{i18n.t('asympMedium')}</Text>
-                                        <Ionicons name="md-information-circle-outline" size={10} color={"darkgray"} />
+                                        {infoIcon}
                                     </View>}
                                 containerStyle={styles.caseItems}
                                 bottomDivider
@@ -87,7 +88,7 @@ class CasesListView extends React.Component {
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ margin: 4, backgroundColor: "blue", width: 12, height: 12 }} />
                                         <Text>{i18n.t('asympLow')}</Text>
-                                        <Ionicons name="md-information-circle-outline" size={10} color={"darkgray"} />
+                                        {infoIcon}
                                     </View>}
                                 containerStyle={styles.caseItems}
                                 bottomDivider
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
         flex: 5,
         flexDirection: "column",
         justifyContent: "flex-start",
+        marginTop:8,
     },
     caseItems: {
         margin: 2,

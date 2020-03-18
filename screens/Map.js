@@ -1,6 +1,7 @@
 import React, { Component, useContext } from 'react'
 import { View, Text, StyleSheet, Button, TouchableOpacity, StatusBar } from 'react-native'
-import MapView, { Heatmap, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { ClusterMap } from "react-native-cluster-map";
 import { DatabaseContext } from '../components/DatabaseContext';
 
 
@@ -18,11 +19,11 @@ const layers = {
 }
 
 const heatColors = {
-    casesDeaths:["#79BC6A", "#EEC20B", "#E50000"],
-    casesInfections:["#00D4FF","#090979", "#020024" ],
-    casesRecoveries:["#E00005", "#79BC6A", "#EEC20B"],
-    reportedSymptomaticNegative:["#79BC6A", "#EEC20B", "#E50000"],
-    reportedSymptomaticPositive:["#E00005", "#EEC20B", "#79BC6A"],
+    casesDeaths: ["#79BC6A", "#EEC20B", "#E50000"],
+    casesInfections: ["#00D4FF", "#090979", "#020024"],
+    casesRecoveries: ["#E00005", "#79BC6A", "#EEC20B"],
+    reportedSymptomaticNegative: ["#79BC6A", "#EEC20B", "#E50000"],
+    reportedSymptomaticPositive: ["#E00005", "#EEC20B", "#79BC6A"],
 }
 
 const layersArray = [];
@@ -34,10 +35,10 @@ const Legend = (props) => {
     return (
         <View style={styles.legendsContainer}>
             <View key={Math.random.toString()}>
-                        <TouchableOpacity style={styles.legends} onPress={() => { props.toggleLayer(layer) }}>
-                            <Text>{""}</Text>
-                        </TouchableOpacity>
-                    </View>
+                <TouchableOpacity style={styles.legends} onPress={() => { props.toggleLayer(layer) }}>
+                    <Text>{""}</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
@@ -76,16 +77,19 @@ class Map extends Component {
                             <Legend
                                 toggleLayer={this.toggleLayer} />
                             <View style={styles.mapWrapper}>
-                                <MapView
+                                <ClusterMap
                                     style={{ width: "100%", height: "100%" }}
-                                    initialRegion={{
+                                    region={{
                                         latitude: 38.9637,
                                         longitude: 35.2433,
                                         latitudeDelta: 30,
                                         longitudeDelta: 60,
                                     }}
                                     provider={PROVIDER_GOOGLE}>
-                                </MapView>
+                                    <Marker coordinate={{ latitude: 37.78725, longitude: -122.434 }} />
+                                    <Marker coordinate={{ latitude: 37.789, longitude: -122.431 }} />
+                                    <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }} />
+                                </ClusterMap>
                             </View>
                         </View>
                     )

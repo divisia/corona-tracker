@@ -16,7 +16,15 @@ i18n.translations = {
         sympLow:"Symptomatic - Low Risk",
         asympMedium:"Asymptomatic - Medium Risk",
         asympLow:"Asymptomatic - Low Risk",
-        cn:"Switzerland"
+
+        cn:"Switzerland",
+
+
+        selfReport:"Self reported",
+        dataSource:"Data source",
+        visitedCountriesQuestion:"Which countries have you been in last 2 months?",
+        visitedCountriesInitialText:"Click to select",
+        countriesSelected:"countries selected"
     },
     tr:{
         appHeader:"COVID-19 Takip",
@@ -25,7 +33,9 @@ i18n.translations = {
         infections:"Enfekte",
         recoveries:"Bağışık",
         selfReportOffer:"COVID-19'u takip etmemize yardım etmek ister misiniz?",
-        selfReportButton:"Olur"
+        selfReportButton:"Olur",
+
+        cn:"İsviçre"
     },
     de:{
         appHeader:"Verfolgen COVID-19",

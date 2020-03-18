@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, FlatList } from 'react-native'
 import { Card } from 'react-native-elements';
 import { DatabaseContext } from '../../components/DatabaseContext';
 import i18n from 'i18n-js'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const valueCheck = (value) => {
@@ -20,7 +21,8 @@ class TopOverviewCards extends Component {
                     const { cases } = context;
                     const loading = cases.loading;
                     return (
-                        <View style={styles.overviewCardGroup}>
+                        <View style={{justifyContent:"center", flex:2}}>
+                            <View style={styles.overviewCardGroup}>
                             <View style={styles.overviewCard}>
                                 <View style={{ flexDirection: "row", alignItems:"center" }}>
                                     <View style={{width:10, height:10, borderRadius:"50", backgroundColor:"black", margin:3}}></View>
@@ -46,6 +48,12 @@ class TopOverviewCards extends Component {
                                 
                                 <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.recovered.now}</Text>
                             </View>
+                        </View>
+                        <TouchableOpacity>
+                            <View style={{alignItems:"flex-end", marginHorizontal:10}}>
+                            <Text style={{color:"#777"}}>{i18n.t('dataSource')}: WHO</Text>
+                            </View>
+                        </TouchableOpacity>
                         </View>
                     );
                 }}
