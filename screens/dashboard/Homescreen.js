@@ -4,6 +4,7 @@ import CasesListView from './CasesListView';
 import RegionSelector from "./RegionSelector";
 import TopOverviewCards from "./TopOverviewCards";
 import SelfReport from "./SelfReport";
+import LangSwitch from './LangSwitch'
 
 
 class Homescreen extends React.Component {
@@ -17,6 +18,7 @@ class Homescreen extends React.Component {
                 <RegionSelector />
                 <TopOverviewCards />
                 <CasesListView />
+                {/** <LangSwitch /> **/}
                 <SelfReport />
             </View>
         );

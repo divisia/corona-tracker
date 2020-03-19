@@ -2,8 +2,8 @@ import React, { Component, useContext } from 'react'
 import { View, Text, StyleSheet, Button, TouchableOpacity, StatusBar, Platform } from 'react-native'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { DatabaseContext } from '../components/DatabaseContext';
-//Platform.OS !== 'web' ? ClusterMap = require("react-native-cluster-map") : null;
 import MapView from 'react-native-map-clustering';
+import i18n from 'i18n-js';
 
 const checkMapAvailability = () => {
     const mapsScriptLoaded = typeof google !== 'undefined'
@@ -14,8 +14,6 @@ const layers = {
     deaths: "casesDeaths",
     infections: "casesInfections",
     recoveries: "casesRecoveries",
-    self_reported_positive: "reportedSymptomaticPositive",
-    self_reported_negative: "reportedSymptomaticNegative",
 }
 
 const heatColors = {
@@ -33,21 +31,18 @@ for (var la in layers) {
 
 const Legend = (props) => {
     return (
-        <View style={styles.legendsContainer}>
-            <View key={Math.random.toString()}>
-                <TouchableOpacity style={styles.legends} onPress={() => { props.toggleLayer(layer) }}>
-                    <Text>{""}</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+            <TouchableOpacity
+                style={props.visible ? styles.visibleLegend : styles.disabledLegend}
+                onPress={() => { props.toggleLayer(props.layer) }}>
+                <Text style={props.visible ? styles.visibleLegendText : styles.disabledLegendText}>{i18n.t(props.layer)}</Text>
+            </TouchableOpacity>
     );
 }
 
 
 class Map extends Component {
     state = {
-        visibleLayers: [layers.deaths],
-        visibleLayer: layers.deaths,
+        visibleLayer: "casesDeaths",
     }
 
     toggleLayer = (layerName) => {
@@ -72,28 +67,35 @@ class Map extends Component {
                 {(context) => {
                     return (
                         <View style={styles.center}>
-                            {Platform.OS !== 'web' ?
-                                <View style={styles.mapWrapper}>
-                                    <MapView
-                                        style={{ width: "100%", height: "100%" }}
-                                        initialRegion={{
-                                            latitude: 38.9637,
-                                            longitude: 35.2433,
-                                            latitudeDelta: 30,
-                                            longitudeDelta: 60,
-                                        }}
-                                        provider={PROVIDER_GOOGLE}>
-                                        
-                                        {!context.heatmap?null:context.heatmap["casesDeaths"].points.map((point)=>{
-                                            return(<Marker coordinate={{ latitude: point.latitude, longitude: point.longitude }} />);
-                                        })}
-                                        
+                            <View style={styles.mapWrapper}>
 
-                                    </MapView>
+                                <View style={styles.legendsContainer}>
+                                {context.heatmap ? Object.keys(context.heatmap).map((layerName) => {
+                                    return (
+                                        <Legend layer={layerName}
+                                            key={Math.random().toString()}
+                                            visible={layerName === this.state.visibleLayer}
+                                            toggleLayer={this.toggleLayer} />);
+                                }) : null}
                                 </View>
-                                : <View style={{ textAlign: "center", alignItems: "center", justifyContent: "center" }}>
-                                    <Text style={{ fontSize: 20 }}>We cannot provide map for web. Sorry for inconvenience.</Text>
-                                </View>}
+
+                                <MapView
+                                    style={{ width: "100%", height: "100%" }}
+                                    initialRegion={{
+                                        latitude: 38.9637,
+                                        longitude: 35.2433,
+                                        latitudeDelta: 30,
+                                        longitudeDelta: 60,
+                                    }}
+                                    provider={PROVIDER_GOOGLE}>
+
+                                    {!context.heatmap ? null : context.heatmap[this.state.visibleLayer].points.map((point) => {
+                                        return (<Marker key={point.latitude * point.longitude} coordinate={{ latitude: point.latitude, longitude: point.longitude }} />);
+                                    })}
+
+
+                                </MapView>
+                            </View>
                         </View>
                     )
                 }}
@@ -118,23 +120,29 @@ const styles = StyleSheet.create({
     legendsContainer: {
         flexDirection: "row",
         flexWrap: "wrap",
-        justifyContent: "space-evenly",
+        justifyContent: "center",
         alignItems: "center",
     },
-    legends: {
-        marginHorizontal: 2,
-        marginVertical: 3,
-        padding: 6,
-        borderColor: "lightgray",
-        borderWidth: 1,
-        borderRadius: 10
-    },
-    legendEnabled: {
-        marginHorizontal: 10,
-        marginVertical: 4,
-        padding: 7,
-        borderColor: "green",
+    visibleLegend: {
+        marginHorizontal: 6,
+        marginVertical: 2,
+        padding: 4,
+        color: "white",
+        borderColor:"black",
+        backgroundColor: "#232323",
         borderWidth: 2,
+    },
+    visibleLegendText:{
+        color:"white",
+    },
+    disabledLegend: {
+        marginHorizontal: 6,
+        marginVertical: 2,
+        padding: 4,
+        color: "black",
+        borderColor: "black",
+        borderWidth: 2,
+        borderRadius:4
     },
     mapWrapper: {
         height: "100%",

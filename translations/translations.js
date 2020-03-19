@@ -5,12 +5,19 @@ i18n.translations = {
     en:{
         appHeader:"Track COVID-19",
         region:"Region",
-        deaths:"Deaths",
-        infections:"Infections",
-        recoveries:"Recoveries",
+        casesDeaths:"Deaths",
+        casesInfections:"Infections",
+        casesRecoveries:"Recoveries",
         selfReportOffer:"Would you like to help us tracing COVID-19?",
         selfReportButton:"Sure",
+
+
         dashboard:"Dashboard",
+        map:"Map",
+        news:"News",
+        covid19:"COVID-19",
+        alarms:"Alarms",
+
         sympHigh:"Symptomatic - High Risk",
         sympMedium:"Symptomatic - Medium Risk",
         sympLow:"Symptomatic - Low Risk",
@@ -26,27 +33,26 @@ i18n.translations = {
         visitedCountriesInitialText:"Click to select",
         countriesSelected:"countries selected"
     },
-    tr:{
-        appHeader:"COVID-19 Takip",
-        region:"Bölge",
-        deaths:"Ölü",
-        infections:"Enfekte",
-        recoveries:"Bağışık",
-        selfReportOffer:"COVID-19'u takip etmemize yardım etmek ister misiniz?",
-        selfReportButton:"Olur",
-
-        cn:"İsviçre"
-    },
     de:{
-        appHeader:"Verfolgen COVID-19",
+        appHeader:"Track COVID-19",
         reportedSymptomaticPositive:"Berichtet Symptomatisch - Negativ getestet",
         reportedSymptomaticNegative:"Berichtet Symptomatisch - Positiv getestet",
         selfReportOffer:"Möchten Sie uns helfen, COVID-19 aufzuspüren?",
-        selfReportButton:"Sicher",
-        deaths:"Todesfälle",
-        infections:"Infektionen",
-        recoveries:"Genesungen",
-        dashboard:"General",
+        selfReportButton:"Klar",
+
+        casesDeaths:"Verstorben",
+        casesInfections:"Infektionen",
+        casesRecoveries:"Geheilt",
+
+        sympHigh:"Symptomatisch – Hohes Risiko",
+        sympMedium:"Symptomatisch – Mittleres Risiko",
+        sympLow:"Symptomatisch – Niedriges Risiko",
+        asympMedium:"Asymptomatisch – Mittleres Risiko",
+        asympLow:"Asymptomatisch – Niedriges Risiko",
+
+        dashboard:"Dashboard",
+        alarms:"Alarme",
+
         region:"Region",
 
         cn:"Schweiz",

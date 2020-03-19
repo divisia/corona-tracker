@@ -4,6 +4,7 @@ import { Button, Divider, ListItem, Header, Badge } from 'react-native-elements'
 import { DatabaseContext } from "../../components/DatabaseContext";
 import { Ionicons } from '@expo/vector-icons'
 import i18n from 'i18n-js';
+import Modal,{ModalContent} from 'react-native-modals';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
@@ -13,6 +14,11 @@ const infoIcon = (<Ionicons name="md-information-circle-outline" size={16} color
 
 class CasesListView extends React.Component {
 
+    state = {
+        infoVisible:false,
+        infoText:"The unexpecthed has been happening. Report this to the author."
+    }
+
     render() {
         return (
             <DatabaseContext.Consumer>
@@ -21,11 +27,17 @@ class CasesListView extends React.Component {
                     const loading = reported.loading;
                     return (
                         <View style={styles.cases}>
-                            <TouchableOpacity style={{ flexDirection: "row", padding: 3, marginLeft:2 }}>
+                            <TouchableOpacity style={{ flexDirection: "row", padding: 3, marginLeft: 2 }}>
                                 <Text style={{ color: "#777" }}>{i18n.t('selfReport')}</Text>
                                 {infoIcon}
                             </TouchableOpacity>
                             <ListItem
+                            onPress={()=>{
+                                this.setState({
+                                    infoVisible:true,
+                                    infoText:i18n.t('selfReportInfo')
+                                })
+                            }}
                                 leftElementStyle={styles.caseTitle}
                                 rightElement={(<Text>{reported.data.sympHigh.now}</Text>)}
                                 leftElement={
@@ -95,6 +107,14 @@ class CasesListView extends React.Component {
                                 key={Math.random().toString()}
                                 contentContainerStyle={{ paddingHorizontal: 10 }}
                             />
+                            <Modal
+                                visible={this.state.infoVisible}
+                                onTouchOutside={() => { this.setState({ infoVisible: false }) }}
+                            >
+                                <ModalContent>
+                                    <Text>{this.state.infoText}</Text>
+                                </ModalContent>
+                            </Modal>
                         </View>
                     );
                 }}
@@ -109,7 +129,7 @@ const styles = StyleSheet.create({
         flex: 5,
         flexDirection: "column",
         justifyContent: "flex-start",
-        marginTop:8,
+        marginTop: 8,
     },
     caseItems: {
         margin: 2,

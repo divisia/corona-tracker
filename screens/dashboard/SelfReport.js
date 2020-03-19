@@ -33,9 +33,9 @@ const sendReport = (symptomatic, testResult, visitedCountries, potentialContact)
     publicIP().then((ipAddress) => {
         report.ipAddress = ipAddress;
         console.log("Got IP.", ipAddress)
-        Permissions.askAsync(Permissions.LOCATION).then((status) => {
-            console.log("ACCESS", status)
-            if (status !== 'granted') { throw Error("Fine location access denied."); }
+        Permissions.askAsync(Permissions.LOCATION).then((response) => {
+            console.log("ACCESS", response)
+            if (response.status !== "granted") { throw Error("Fine location access denied."); }
             Location.getCurrentPositionAsync({}).then((position) => {
                 report.location = position;
                 report.locationFine = true;
@@ -286,6 +286,7 @@ class SelfReport extends Component {
 const styles = StyleSheet.create({
     selfReportWrapper: {
         flexDirection: "row",
+        flexWrap:"wrap",
         justifyContent: "space-between",
         alignItems: "center",
         borderColor: "green",

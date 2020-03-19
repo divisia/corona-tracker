@@ -4,13 +4,8 @@ import { AsyncStorage } from 'react-native';
 
 export const notifications = [];
 let ids = [];
-let sent_ids = null;
+let sent_ids = [];
 export let loading = true;
-
-const setNotificationAsSent = (nft) => {
-    notifications.push(nft)
-    AsyncStorage.setItem("sentNotifications", notifications);
-}
 
 const showNotification = (nft) => {
     try {
@@ -20,15 +15,18 @@ const showNotification = (nft) => {
     }
 }
 
-AsyncStorage.getItem("sentNotifications").then((sent)=>{
-    if (sent) sent_ids = sent;
-    firestore.collection("push").onSnapshot((list)=>{
-        list.forEach((nft)=>{
+AsyncStorage.getItem("sentNotifications").then((sent) => {
+    if (sent) sent_ids = JSON.parse(sent);
+    firestore.collection("push").onSnapshot((list) => {
+        list.forEach((nft) => {
             const data = nft.data();
-            if (!ids.includes(nft.id)){ showNotification(data) }
-            setNotificationAsSent(data);
+            if (!sent_ids.includes(nft.id)) { showNotification(data) }
+            notifications.push(data)
             ids.push(nft.id);
+            console.log(nft.id, data)
         })
+        loading = false;
+        AsyncStorage.setItem("sentNotifications", JSON.stringify(notifications));
     })
-    loading = false;
+
 })

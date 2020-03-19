@@ -13,7 +13,6 @@ const Chat = (props) => {
                 {
                 loading?(<Text>LOADING</Text>):
                 notifications.map((notification) => {
-                    console.log(notification)
                     return (
                         <View 
                         key={notification.title}

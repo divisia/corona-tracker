@@ -26,7 +26,7 @@ class TopOverviewCards extends Component {
                                 <View style={styles.overviewCard}>
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ width: 10, height: 10, borderRadius: 50, backgroundColor: "black", margin: 3 }}></View>
-                                        <Text>{i18n.t('deaths')}</Text>
+                                        <Text>{i18n.t('casesDeaths')}</Text>
                                     </View>
                                     <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.dead.now}</Text>
                                 </View>
@@ -34,7 +34,7 @@ class TopOverviewCards extends Component {
                                 <View style={styles.overviewCard}>
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ width: 10, height: 10, borderRadius: 50, backgroundColor: "red", margin: 3 }}></View>
-                                        <Text>{i18n.t('infections')}</Text>
+                                        <Text>{i18n.t('casesInfections')}</Text>
                                     </View>
 
                                     <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.infected.now}</Text>
@@ -43,7 +43,7 @@ class TopOverviewCards extends Component {
                                 <View style={styles.overviewCard}>
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ width: 10, height: 10, borderRadius: 50, backgroundColor: "green", margin: 3 }}></View>
-                                        <Text>{i18n.t('recoveries')}</Text>
+                                        <Text>{i18n.t('casesRecoveries')}</Text>
                                     </View>
 
                                     <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.recovered.now}</Text>

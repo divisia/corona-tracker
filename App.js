@@ -16,10 +16,10 @@ export default class App extends React.Component {
     index: 1,
     routes: [
       { key: 'dashboard', title: i18n.t('dashboard'), icon: 'home' },
-      { key: 'map', title: 'Map', icon: 'map' },
-      { key: 'feeds', title: 'News', icon: 'newspaper' },
-      { key: 'virusinfo', title: 'COVID-19', icon: 'atom' },
-      { key: 'chat', title: 'Alarms', icon: 'alert' },
+      { key: 'map', title: i18n.t('map'), icon: 'map' },
+      { key: 'feeds', title: i18n.t('news'), icon: 'newspaper' },
+      { key: 'virusinfo', title: i18n.t("covid19"), icon: 'atom' },
+      { key: 'chat', title: i18n.t('alarms'), icon: 'alert' },
     ],
   }
 
