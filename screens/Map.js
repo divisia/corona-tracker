@@ -1,9 +1,9 @@
 import React, { Component, useContext } from 'react'
 import { View, Text, StyleSheet, Button, TouchableOpacity, StatusBar, Platform } from 'react-native'
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { DatabaseContext } from '../components/DatabaseContext';
-Platform.OS !== 'web' ? ClusterMap = require("react-native-cluster-map") : null;
-
+//Platform.OS !== 'web' ? ClusterMap = require("react-native-cluster-map") : null;
+import MapView from 'react-native-map-clustering';
 
 const checkMapAvailability = () => {
     const mapsScriptLoaded = typeof google !== 'undefined'
@@ -47,18 +47,16 @@ const Legend = (props) => {
 class Map extends Component {
     state = {
         visibleLayers: [layers.deaths],
+        visibleLayer: layers.deaths,
     }
 
     toggleLayer = (layerName) => {
-        const visibleLayers = this.state.visibleLayers;
-        if (visibleLayers.includes(layerName)) visibleLayers.splice(visibleLayers.indexOf(layerName), 1);
-        else visibleLayers.push(layerName);
-        this.setState({ visibleLayers: visibleLayers });
+        this.setState({ visibleLayer: layerName });
     }
 
     render() {
         const mapAvailable = checkMapAvailability();
-        if (!mapAvailable) {
+        if (false && !mapAvailable) {
             // The screen when map is not available, offline etc.
             return (
                 <View style={styles.homescreen}>
@@ -76,26 +74,27 @@ class Map extends Component {
                         <View style={styles.center}>
                             {Platform.OS !== 'web' ?
                                 <View style={styles.mapWrapper}>
-
-                                    <ClusterMap
+                                    <MapView
                                         style={{ width: "100%", height: "100%" }}
-                                        region={{
+                                        initialRegion={{
                                             latitude: 38.9637,
                                             longitude: 35.2433,
                                             latitudeDelta: 30,
                                             longitudeDelta: 60,
                                         }}
                                         provider={PROVIDER_GOOGLE}>
-                                        <Marker coordinate={{ latitude: 37.78725, longitude: -122.434 }} />
                                         
-                                    </ClusterMap>
+                                        {!context.heatmap?null:context.heatmap["casesDeaths"].points.map((point)=>{
+                                            return(<Marker coordinate={{ latitude: point.latitude, longitude: point.longitude }} />);
+                                        })}
+                                        
 
+                                    </MapView>
                                 </View>
                                 : <View style={{ textAlign: "center", alignItems: "center", justifyContent: "center" }}>
                                     <Text style={{ fontSize: 20 }}>We cannot provide map for web. Sorry for inconvenience.</Text>
                                 </View>}
                         </View>
-
                     )
                 }}
             </DatabaseContext.Consumer>

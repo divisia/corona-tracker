@@ -21,39 +21,39 @@ class TopOverviewCards extends Component {
                     const { cases } = context;
                     const loading = cases.loading;
                     return (
-                        <View style={{justifyContent:"center", flex:2}}>
+                        <View style={{ justifyContent: "center", flex: 2 }}>
                             <View style={styles.overviewCardGroup}>
-                            <View style={styles.overviewCard}>
-                                <View style={{ flexDirection: "row", alignItems:"center" }}>
-                                    <View style={{width:10, height:10, borderRadius:"50", backgroundColor:"black", margin:3}}></View>
-                                    <Text>{i18n.t('deaths')}</Text>
+                                <View style={styles.overviewCard}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ width: 10, height: 10, borderRadius: 50, backgroundColor: "black", margin: 3 }}></View>
+                                        <Text>{i18n.t('deaths')}</Text>
+                                    </View>
+                                    <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.dead.now}</Text>
                                 </View>
-                                <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.dead.now}</Text>
-                            </View>
-                            <View style={styles.overViewCardDivider} />
-                            <View style={styles.overviewCard}>
-                            <View style={{ flexDirection: "row", alignItems:"center" }}>
-                                    <View style={{width:10, height:10, borderRadius:"50", backgroundColor:"red", margin:3}}></View>
-                                    <Text>{i18n.t('infections')}</Text>
+                                <View style={styles.overViewCardDivider} />
+                                <View style={styles.overviewCard}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ width: 10, height: 10, borderRadius: 50, backgroundColor: "red", margin: 3 }}></View>
+                                        <Text>{i18n.t('infections')}</Text>
+                                    </View>
+
+                                    <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.infected.now}</Text>
                                 </View>
-                            
-                                <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.infected.now}</Text>
-                            </View>
-                            <View style={styles.overViewCardDivider} />
-                            <View style={styles.overviewCard}>
-                            <View style={{ flexDirection: "row", alignItems:"center" }}>
-                                    <View style={{width:10, height:10, borderRadius:"50", backgroundColor:"green", margin:3}}></View>
-                                    <Text>{i18n.t('recoveries')}</Text>
+                                <View style={styles.overViewCardDivider} />
+                                <View style={styles.overviewCard}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ width: 10, height: 10, borderRadius: 50, backgroundColor: "green", margin: 3 }}></View>
+                                        <Text>{i18n.t('recoveries')}</Text>
+                                    </View>
+
+                                    <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.recovered.now}</Text>
                                 </View>
-                                
-                                <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.recovered.now}</Text>
                             </View>
-                        </View>
-                        <TouchableOpacity>
-                            <View style={{alignItems:"flex-end", marginHorizontal:10}}>
-                            <Text style={{color:"#777"}}>{i18n.t('dataSource')}: WHO</Text>
-                            </View>
-                        </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={{ alignItems: "flex-end", marginHorizontal: 10 }}>
+                                    <Text style={{ color: "#777" }}>{i18n.t('dataSource')}: WHO</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     );
                 }}

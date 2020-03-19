@@ -23,7 +23,7 @@ class Feed extends React.Component {
         const { addedAt, thumbnail_url, feed_url, header, origin_url } = this.props.feed;
         return (
             <ListItem
-                title={header}
+                title={header["de"]}
                 subtitle={new Date(addedAt.seconds*1000).toLocaleDateString() + " - " + origin_url}
                 leftElement={<Image source={{ uri: thumbnail_url }} style={styles.feedThumbnail}/>}
                 onPress={()=>{Linking.openURL(feed_url)}} />

@@ -1,42 +1,34 @@
 import { Notifications } from 'expo';
 import firestore from '../components/Firestore';
-import AsyncStorage from '@react-native-community/async-storage';
+import { AsyncStorage } from 'react-native';
 
-export let sentNotifications = [];
-let sentNotificationsIds = [];
+export const notifications = [];
+let ids = [];
+let sent_ids = null;
+export let loading = true;
 
-AsyncStorage.getItem("sentNotifications").then((val) => {
-    val ? sentNotifications = val : null
-    val ? val.forEach((v) => { sentNotificationsIds.push(v.id) }) : null
-})
+const setNotificationAsSent = (nft) => {
+    notifications.push(nft)
+    AsyncStorage.setItem("sentNotifications", notifications);
+}
 
-const fireNotification = (snapshot) => {
-    const notification = {
-        title: String(snapshot.title),
-        body: String(snapshot.body),
+const showNotification = (nft) => {
+    try {
+        Notifications.presentLocalNotificationAsync(nft);
+    } catch (e) {
+        console.log("ERR while notification", e)
     }
-    try { Notifications.presentLocalNotificationAsync(notification); }
-    catch (e) { }
 }
 
-
-firestore.collection("push").onSnapshot((notificationList) => {
-    notificationList.forEach((notification) => {
-        if (!isNotificationSent(notification.id)) {
-            fireNotification(notification);
-            setNotificationSent(notification);
-        }
-        sentNotifications.push(notification);
+AsyncStorage.getItem("sentNotifications").then((sent)=>{
+    if (sent) sent_ids = sent;
+    firestore.collection("push").onSnapshot((list)=>{
+        list.forEach((nft)=>{
+            const data = nft.data();
+            if (!ids.includes(nft.id)){ showNotification(data) }
+            setNotificationAsSent(data);
+            ids.push(nft.id);
+        })
     })
+    loading = false;
 })
-
-const setNotificationSent = (no) => {
-    sentNotificationsIds.push(no.id);
-    sentNotifications.push(no);
-    AsyncStorage.setItem("sentNotifications", sentNotifications);
-}
-
-const isNotificationSent = (id) => {
-    if (sentNotificationsIds.includes(id)) { return true; }
-    else { return false; }
-}

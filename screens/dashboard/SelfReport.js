@@ -72,7 +72,7 @@ const sendReport = (symptomatic, testResult, visitedCountries, potentialContact)
 
 class SelfReport extends Component {
     state = {
-        visible: true,
+        visible: false,
         countryListVisible: false,
         symptomatic: -2,
         testResult: null,

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Button, Image } from 'react-native'
 import { getMediaUri } from '../utilities/constants'
 import { ScrollView } from 'react-native-gesture-handler';
-import { sentNotifications } from "../notifications/notificationRegisterer";
+import { notifications, loading } from "../notifications/notificationRegisterer";
 
 
 const Chat = (props) => {
@@ -10,10 +10,27 @@ const Chat = (props) => {
     return (
         <View style={styles.homescreen}>
             <ScrollView>
-                {sentNotifications.forEach((no)=>{
-                    <View>
-                        <Text>{no.title}</Text>
-                    </View>
+                {
+                loading?(<Text>LOADING</Text>):
+                notifications.map((notification) => {
+                    console.log(notification)
+                    return (
+                        <View 
+                        key={notification.title}
+                        style={{
+                            borderWidth: 1,
+                            borderColor: "black",
+                            alignItems: "flex-start",
+                            justifyContent: "center",
+                            padding:4,
+                            margin:10,
+                        }}>
+
+                            <Text style={{ fontWeight: "bold", fontSize: 20 }}>{notification.title}</Text>
+                            <Text>{notification.body}</Text>
+
+                        </View>
+                    );
                 })}
             </ScrollView>
         </View>
