@@ -23,7 +23,6 @@ AsyncStorage.getItem("sentNotifications").then((sent) => {
             if (!sent_ids.includes(nft.id)) { showNotification(data) }
             notifications.push(data)
             ids.push(nft.id);
-            console.log(nft.id, data)
         })
         loading = false;
         AsyncStorage.setItem("sentNotifications", JSON.stringify(notifications));

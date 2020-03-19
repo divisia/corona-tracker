@@ -23,14 +23,7 @@ class TopOverviewCards extends Component {
                     return (
                         <View style={{ justifyContent: "center", flex: 2 }}>
                             <View style={styles.overviewCardGroup}>
-                                <View style={styles.overviewCard}>
-                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                        <View style={{ width: 10, height: 10, borderRadius: 50, backgroundColor: "black", margin: 3 }}></View>
-                                        <Text>{i18n.t('casesDeaths')}</Text>
-                                    </View>
-                                    <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.dead.now}</Text>
-                                </View>
-                                <View style={styles.overViewCardDivider} />
+
                                 <View style={styles.overviewCard}>
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ width: 10, height: 10, borderRadius: 50, backgroundColor: "red", margin: 3 }}></View>
@@ -48,10 +41,25 @@ class TopOverviewCards extends Component {
 
                                     <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.recovered.now}</Text>
                                 </View>
+                                <View style={styles.overViewCardDivider} />
+
+                                <View style={styles.overviewCard}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <View style={{ width: 10, height: 10, borderRadius: 50, backgroundColor: "black", margin: 3 }}></View>
+                                        <Text>{i18n.t('casesDeaths')}</Text>
+                                    </View>
+                                    <Text style={styles.overviewCardValue}>{loading ? NA : cases.data.dead.now}</Text>
+                                </View>
                             </View>
                             <TouchableOpacity>
                                 <View style={{ alignItems: "flex-end", marginHorizontal: 10 }}>
-                                    <Text style={{ color: "#777" }}>{i18n.t('dataSource')}: WHO</Text>
+                                    <Text 
+                                    style={{ color: "#777" }}>
+                                        {i18n.t('dataSource')}: WHO 
+                                        - {i18n.t('lastUpdate')}:    
+                                         {!cases.data.lastUpdate ? NA : 
+                                         new Date(cases.data.lastUpdate.seconds * 1000).toLocaleDateString()+ " "+ new Date(cases.data.lastUpdate.seconds * 1000).toLocaleTimeString()}
+                                         </Text>
                                 </View>
                             </TouchableOpacity>
                         </View>

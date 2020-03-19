@@ -4,7 +4,7 @@ import { Button, Divider, ListItem, Header, Badge } from 'react-native-elements'
 import { DatabaseContext } from "../../components/DatabaseContext";
 import { Ionicons } from '@expo/vector-icons'
 import i18n from 'i18n-js';
-import Modal,{ModalContent} from 'react-native-modals';
+import Modal, { ModalContent } from 'react-native-modals';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
@@ -15,8 +15,8 @@ const infoIcon = (<Ionicons name="md-information-circle-outline" size={16} color
 class CasesListView extends React.Component {
 
     state = {
-        infoVisible:false,
-        infoText:"The unexpecthed has been happening. Report this to the author."
+        infoVisible: false,
+        infoText: "The unexpecthed has been happening. Report this to the author."
     }
 
     render() {
@@ -27,22 +27,30 @@ class CasesListView extends React.Component {
                     const loading = reported.loading;
                     return (
                         <View style={styles.cases}>
-                            <TouchableOpacity style={{ flexDirection: "row", padding: 3, marginLeft: 2 }}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    this.setState({
+                                        infoVisible: true,
+                                        infoText: i18n.t('selfReportInfo')
+                                    })
+                                }}
+                                style={{ flexDirection: "row", padding: 3, marginLeft: 2 }}>
                                 <Text style={{ color: "#777" }}>{i18n.t('selfReport')}</Text>
                                 {infoIcon}
+
                             </TouchableOpacity>
                             <ListItem
-                            onPress={()=>{
-                                this.setState({
-                                    infoVisible:true,
-                                    infoText:i18n.t('selfReportInfo')
-                                })
-                            }}
+                                onPress={() => {
+                                    this.setState({
+                                        infoVisible: true,
+                                        infoText: i18n.t('sympHighInfo')
+                                    })
+                                }}
                                 leftElementStyle={styles.caseTitle}
                                 rightElement={(<Text>{reported.data.sympHigh.now}</Text>)}
                                 leftElement={
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                        <View style={{ margin: 4, backgroundColor: "brown", width: 12, height: 12 }} />
+                                        <View style={{ margin: 4, backgroundColor: "brown", width: 12, height: 12, borderRadius:50 }} />
                                         <Text>{i18n.t('sympHigh')}</Text>
                                         {infoIcon}
                                     </View>}
@@ -52,11 +60,17 @@ class CasesListView extends React.Component {
                                 contentContainerStyle={{ paddingHorizontal: 10 }}
                             />
                             <ListItem
+                                onPress={() => {
+                                    this.setState({
+                                        infoVisible: true,
+                                        infoText: i18n.t('sympMediumInfo')
+                                    })
+                                }}
                                 leftElementStyle={styles.caseTitle}
                                 rightElement={(<Text>{reported.data.sympMedium.now}</Text>)}
                                 leftElement={
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                        <View style={{ margin: 4, backgroundColor: "cyan", width: 12, height: 12 }} />
+                                        <View style={{ margin: 4, backgroundColor: "cyan", width: 12, height: 12, borderRadius:50 }} />
                                         <Text>{i18n.t('sympMedium')}</Text>
                                         {infoIcon}
                                     </View>}
@@ -66,11 +80,17 @@ class CasesListView extends React.Component {
                                 contentContainerStyle={{ paddingHorizontal: 10 }}
                             />
                             <ListItem
+                                onPress={() => {
+                                    this.setState({
+                                        infoVisible: true,
+                                        infoText: i18n.t('sympLowInfo')
+                                    })
+                                }}
                                 leftElementStyle={styles.caseTitle}
                                 rightElement={(<Text>{reported.data.sympLow.now}</Text>)}
                                 leftElement={
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                        <View style={{ margin: 4, backgroundColor: "purple", width: 12, height: 12 }} />
+                                        <View style={{ margin: 4, backgroundColor: "purple", width: 12, height: 12, borderRadius:50 }} />
                                         <Text>{i18n.t('sympLow')}</Text>
                                         {infoIcon}
                                     </View>}
@@ -80,11 +100,17 @@ class CasesListView extends React.Component {
                                 contentContainerStyle={{ paddingHorizontal: 10 }}
                             />
                             <ListItem
+                                onPress={() => {
+                                    this.setState({
+                                        infoVisible: true,
+                                        infoText: i18n.t('asympMediumInfo')
+                                    })
+                                }}
                                 leftElementStyle={styles.caseTitle}
                                 rightElement={(<Text>{reported.data.asympMedium.now}</Text>)}
                                 leftElement={
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                        <View style={{ margin: 4, backgroundColor: "gold", width: 12, height: 12 }} />
+                                        <View style={{ margin: 4, backgroundColor: "gold", width: 12, height: 12, borderRadius:50 }} />
                                         <Text>{i18n.t('asympMedium')}</Text>
                                         {infoIcon}
                                     </View>}
@@ -94,11 +120,17 @@ class CasesListView extends React.Component {
                                 contentContainerStyle={{ paddingHorizontal: 10 }}
                             />
                             <ListItem
+                                onPress={() => {
+                                    this.setState({
+                                        infoVisible: true,
+                                        infoText: i18n.t('asympLowInfo')
+                                    })
+                                }}
                                 leftElementStyle={styles.caseTitle}
                                 rightElement={(<Text>{reported.data.asympLow.now}</Text>)}
                                 leftElement={
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                        <View style={{ margin: 4, backgroundColor: "blue", width: 12, height: 12 }} />
+                                        <View style={{ margin: 4, backgroundColor: "blue", width: 12, height: 12, borderRadius:50 }} />
                                         <Text>{i18n.t('asympLow')}</Text>
                                         {infoIcon}
                                     </View>}
@@ -126,17 +158,19 @@ class CasesListView extends React.Component {
 const styles = StyleSheet.create({
     cases: {
         width: "100%",
-        flex: 5,
+        flex: 3.8,
         flexDirection: "column",
         justifyContent: "flex-start",
         marginTop: 8,
     },
     caseItems: {
-        margin: 2,
-        padding: 6,
+        borderWidth:1,
+        margin: 1,
+        padding: 4,
         backgroundColor: "transparent",
         borderColor: "darkgray",
-        borderWidth: 1,
+        borderBottomWidth:1,
+        
     },
     caseTitle: {
         fontSize: 12,

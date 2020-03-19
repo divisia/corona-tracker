@@ -126,13 +126,13 @@ class SelfReport extends Component {
 
                         </ModalFooter>)
                     }
-                    modalTitle={<ModalTitle title="Report form" />}>
+                    modalTitle={<ModalTitle title={i18n.t('reportForm')} />}>
 
                     <ModalContent>
                         {/* Symptomatic question */}
                         <View style={styles.modalWrapper}>
                             <View style={styles.questionSymptomatic}>
-                                <Text>Are you having symptoms?</Text>
+                                <Text>{i18n.t('isHavingSymptoms')}</Text>
                                 <View style={{ flexDirection: "row" }}>
                                     <View style={styles.answer}>
                                         <View>
@@ -141,7 +141,7 @@ class SelfReport extends Component {
                                                 status={this.state.symptomatic === 1 ? 'checked' : 'unchecked'}
                                                 onPress={() => { this.setState({ symptomatic: 1 }) }} />
                                         </View>
-                                        <Text>Yes</Text>
+                                        <Text>{i18n.t('yes')}</Text>
                                     </View>
                                     <View style={styles.answer}>
                                         <View>
@@ -150,14 +150,14 @@ class SelfReport extends Component {
                                                 status={this.state.symptomatic === 0 ? 'checked' : 'unchecked'}
                                                 onPress={() => { this.setState({ symptomatic: 0 }) }} />
                                         </View>
-                                        <Text>No</Text>
+                                        <Text>{i18n.t('no')}</Text>
                                     </View>
                                 </View>
                             </View>
                         </View>
                         {/* Test status question */}
                         <View style={styles.questionSymptomatic}>
-                            <Text>What is your test result?</Text>
+                            <Text>{i18n.t('whatIsTestResult')}</Text>
                             <View style={styles.answer}>
 
                                 <View>
@@ -166,7 +166,7 @@ class SelfReport extends Component {
                                         status={this.state.testResult === 'positive' ? 'checked' : 'unchecked'}
                                         onPress={() => { this.setState({ testResult: 'positive' }) }} />
                                 </View>
-                                <Text>Positive</Text>
+                                <Text>{i18n.t('positive')}</Text>
 
                             </View>
                             <View style={styles.answer}>
@@ -177,7 +177,7 @@ class SelfReport extends Component {
                                         status={this.state.testResult === 'negative' ? 'checked' : 'unchecked'}
                                         onPress={() => { this.setState({ testResult: 'negative' }) }} />
                                 </View>
-                                <Text>Negative</Text>
+                <Text>{i18n.t('negative')}</Text>
                             </View>
                             <View style={styles.answer}>
 
@@ -187,7 +187,7 @@ class SelfReport extends Component {
                                         status={this.state.testResult === 'notTested' ? 'checked' : 'unchecked'}
                                         onPress={() => { this.setState({ testResult: 'notTested' }) }} />
                                 </View>
-                                <Text>Not tested</Text>
+                <Text>{i18n.t('notTested')}</Text>
                             </View>
                         </View>
                         {/* Visited countries question */}
@@ -205,8 +205,8 @@ class SelfReport extends Component {
                         {/* Contact with infected person question */}
                         <View style={{ flexWrap: 'wrap' }}>
                             <TouchableOpacity style={{ flexDirection: "row", justifyContent: "center" }}
-                                onPress={() => { this.setState({ infoModalVisible: true, infoModalText: "Persons with symptoms or persons you know were travelling to the affected areas." }) }}>
-                                <Text>Did you have contact with a potantial coronavirus infected person?{infoIcon}</Text>
+                                onPress={() => { this.setState({ infoModalVisible: true, infoModalText: i18n.t('potantialInfectInfo') }) }}>
+                                <Text>{i18n.t('didPotantialContact')} {infoIcon}</Text>
 
 
                             </TouchableOpacity>
@@ -214,17 +214,17 @@ class SelfReport extends Component {
                                 <TouchableOpacity onPress={() => { this.setState({ potentialContact: "yes" }) }}
                                     style={{ flexDirection: "row", alignItems: "center" }}>
                                     <RadioButton status={potentialContact === 'yes' ? 'checked' : 'unchecked'} />
-                                    <Text>Yes</Text>
+                                    <Text>{i18n.t('yes')}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => { this.setState({ potentialContact: "no" }) }}
                                     style={{ flexDirection: "row", alignItems: "center" }}>
                                     <RadioButton status={potentialContact === 'no' ? 'checked' : 'unchecked'} />
-                                    <Text>No</Text>
+                                    <Text>{i18n.t('no')}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => { this.setState({ potentialContact: "dk" }) }}
                                     style={{ flexDirection: "row", alignItems: "center" }}>
                                     <RadioButton status={potentialContact === 'dk' ? 'checked' : 'unchecked'} />
-                                    <Text>Don't know</Text>
+                                    <Text>{i18n.t('dontKnow')}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -234,7 +234,7 @@ class SelfReport extends Component {
                     visible={this.state.countryListVisible}
                     onTouchOutside={() => { this.setState({ countryListVisible: false }) }}
                     footer={(<ModalFooter>
-                        <Button title="OK"></Button>
+                        <Button title={i18n.t('ok')}></Button>
                     </ModalFooter>)}
                 >
                     <ModalContent>
@@ -291,8 +291,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderColor: "green",
         borderWidth: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
+        paddingHorizontal: 8,
+        paddingVertical: 8,
     },
     answer: {
         alignItems: "center",

@@ -13,7 +13,7 @@ import { fireNotification } from './notifications/notificationRegisterer';
 
 export default class App extends React.Component {
   state = {
-    index: 1,
+    index: 0,
     routes: [
       { key: 'dashboard', title: i18n.t('dashboard'), icon: 'home' },
       { key: 'map', title: i18n.t('map'), icon: 'map' },

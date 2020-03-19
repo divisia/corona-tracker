@@ -19,6 +19,7 @@ class Homescreen extends React.Component {
                 <TopOverviewCards />
                 <CasesListView />
                 {/** <LangSwitch /> **/}
+                <LangSwitch />
                 <SelfReport />
             </View>
         );

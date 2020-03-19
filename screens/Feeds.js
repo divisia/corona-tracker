@@ -4,11 +4,11 @@ import { ListItem } from "react-native-elements";
 import { DatabaseContext } from "../components/DatabaseContext";
 import { Linking, WebBrowser } from 'expo';
 import Modal, { ModalContent, ModalButton, ModalFooter } from 'react-native-modals'
+import i18n from 'i18n-js'
 
 
 const openUrl = () => {
     const feed_url = this.feed_url;
-    console.log("url", feed_url)
     if (Linking.canOpenURL(feed_url)){
         Linking.openURL(feed_url);
     } else {
@@ -19,11 +19,10 @@ const openUrl = () => {
 
 class Feed extends React.Component {
     render() {
-        console.log(this.props.feed);
         const { addedAt, thumbnail_url, feed_url, header, origin_url } = this.props.feed;
         return (
             <ListItem
-                title={header["de"]}
+                title={header[i18n.currentLocale().substr(0,2)]}
                 subtitle={new Date(addedAt.seconds*1000).toLocaleDateString() + " - " + origin_url}
                 leftElement={<Image source={{ uri: thumbnail_url }} style={styles.feedThumbnail}/>}
                 onPress={()=>{Linking.openURL(feed_url)}} />

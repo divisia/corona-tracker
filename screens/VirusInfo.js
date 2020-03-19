@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image, ScrollView } from 'react-native';
 import { getMediaUri } from "../utilities/constants";
+import i18n from 'i18n-js';
 
 
 export default class VirusInfo extends Component {
@@ -9,7 +10,7 @@ export default class VirusInfo extends Component {
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.section}>
                     <View style={styles.headerWrapper}>
-                        <Text style={styles.header}>What are the symptoms of COVID-19?</Text>
+                        <Text style={styles.header}>{i18n.t('covid19Symptoms')}</Text>
                     </View>
                     <View style={styles.sectionContext}>
 
