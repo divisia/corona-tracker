@@ -36,6 +36,11 @@ i18n.translations = {
         cough:"Cough",
         headache:"Headache",
 
+        socialDistance:"Avoid contact with others",
+        stayHome:"Stay at home",
+        washHands:"Wash hands with water and soap/sanitizer at least 20 seconds",
+        dontTouchFace:"Don't eyes, nose or mouth with unwashed hands",
+        seekMedicalCare:"If you become sick seek medical care immediately",
 
         dashboard: "Dashboard",
         map: "Map",
@@ -93,6 +98,15 @@ i18n.translations = {
         isHavingSymptoms:"Haben Sie Symptome?",
         potantialInfectInfo:"Personen mit Symptomen oder Personen, die in ein mit Covid-19 betroffenes Gebiet gereist sind.",
 
+        
+        dataSource:"Datenquelle",
+
+        socialDistance:"Soziale Distanz",
+        stayHome:"Bleiben Sie zuhause",
+        washHands:"Hände regelmässig waschen",
+        dontTouchFace:"Nicht ins Gesicht fassen.",
+        seekMedicalCare:"Wenn Sie sich krank fühlen kontaktieren Sie Ihren Hausarzt",
+        
         casesDeaths: "Verstorben",
         casesInfections: "Infektionen",
         casesRecoveries: "Geheilt",
@@ -119,7 +133,6 @@ i18n.translations = {
         asympLowInfo: "Fälle, die keine Anzeichen des Covid-19-Virus aufweisen und erklären, nicht in ein von Covid-19 betroffenes Gebiet gereist zu sein, und nicht wissen, ob sie Kontakt mit einer potenziellen mit dem Corona-Virus infizierten Person hatten.",
     }
 }
-i18n.locale = "en-US"
 AsyncStorage.getItem("language").then((lang)=>{
     if (lang) i18n.locale = lang;
 })

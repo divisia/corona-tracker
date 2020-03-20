@@ -18,38 +18,40 @@ export default class VirusInfo extends Component {
                             <Image
                                 source={{ uri: getMediaUri("symptoms/0.png") }}
                                 style={styles.image} />
-                            <Text style={styles.sectionItemText}>Headache</Text>
+                            <Text style={styles.sectionItemText}>{i18n.t('headache')}</Text>
                         </View>
                         <View style={styles.sectionItem}>
                             <Image
                                 source={{ uri: getMediaUri("symptoms/1.png") }}
                                 style={styles.image} />
-                            <Text style={styles.sectionItemText}>Sore throat</Text>
+                            <Text style={styles.sectionItemText}>{i18n.t('soreThroat')}</Text>
                         </View>
                         <View style={styles.sectionItem}>
                             <Image
                                 source={{ uri: getMediaUri("symptoms/2.png") }}
                                 style={styles.image} />
-                            <Text style={styles.sectionItemText}>Shortness of breath</Text>
+                            <Text style={styles.sectionItemText}>{i18n.t('breathShortness')}</Text>
                         </View>
                         <View style={styles.sectionItem}>
                             <Image
                                 source={{ uri: getMediaUri("symptoms/3.png") }}
                                 style={styles.image} />
-                            <Text style={styles.sectionItemText}>Cough</Text>
+                            <Text style={styles.sectionItemText}>{i18n.t('cough')}</Text>
                         </View>
                         <View style={styles.sectionItem}>
                             <Image
                                 source={{ uri: getMediaUri("symptoms/4.png") }}
                                 style={styles.image} />
-                            <Text style={styles.sectionItemText}>Fewer</Text>
+                            <Text style={styles.sectionItemText}>{i18n.t('fewer')}</Text>
                         </View>
 
                     </View>
                 </View>
+
+                {/* Prevention */}
                 <View style={styles.section}>
                     <View style={styles.headerWrapper}>
-                        <Text style={styles.header}>How can I avoid getting infected?</Text>
+                        <Text style={styles.header}>{i18n.t('covid19Avoid')}</Text>
                     </View>
                     <View style={styles.sectionContext}>
 
@@ -61,96 +63,27 @@ export default class VirusInfo extends Component {
                         </View>
                         <View style={styles.sectionItem}>
                             <Image
-                                source={{ uri: getMediaUri("prevention/1.png") }}
-                                style={styles.image} />
-                            <Text style={styles.sectionItemText}>Wear mask</Text>
-                        </View>
-                        <View style={styles.sectionItem}>
-                            <Image
                                 source={{ uri: getMediaUri("prevention/2.png") }}
                                 style={styles.image} />
-                            <Text style={styles.sectionItemText}>Avoid contact with sick people</Text>
+                            <Text style={styles.sectionItemText}>{i18n.t('socialDistance')}</Text>
                         </View>
                         <View style={styles.sectionItem}>
                             <Image
                                 source={{ uri: getMediaUri("prevention/3.png") }}
                                 style={styles.image} />
-                            <Text style={styles.sectionItemText}>Don't touch your face with unwashed hands</Text>
+                            <Text style={styles.sectionItemText}>{i18n.t('dontTouchFace')}</Text>
                         </View>
                         <View style={styles.sectionItem}>
                             <Image
                                 source={{ uri: getMediaUri("prevention/4.png") }}
                                 style={styles.image} />
-                            <Text style={styles.sectionItemText}>Regularly wash your hands</Text>
-                        </View>
-                        <View style={styles.sectionItem}>
-                            <Image
-                                source={{ uri: getMediaUri("prevention/5.png") }}
-                                style={styles.image} />
-                            <Text style={styles.sectionItemText}>Don't share your food</Text>
+                            <Text style={styles.sectionItemText}>{i18n.t('washHands')}</Text>
                         </View>
                         <View style={styles.sectionItem}>
                             <Image
                                 source={{ uri: getMediaUri("prevention/6.png") }}
                                 style={styles.image} />
-                            <Text style={styles.sectionItemText}>If you become sick, seek medical care immedately</Text>
-                        </View>
-                        <View style={styles.sectionItem}>
-                            <Image
-                                source={{ uri: getMediaUri("prevention/7.png") }}
-                                style={styles.image} />
-                            <Text style={styles.sectionItemText}>Avoid travelling unless necessary</Text>
-                        </View>
-                        <View style={styles.sectionItem}>
-                            <Image
-                                source={{ uri: getMediaUri("prevention/8.png") }}
-                                style={styles.image} />
-                            <Text style={styles.sectionItemText}>Avoid contact with animals and animal products</Text>
-                        </View>
-                        <View style={styles.sectionItem}>
-                            <Image
-                                source={{ uri: getMediaUri("prevention/9.png") }}
-                                style={styles.image} />
-                            <Text style={styles.sectionItemText}>Do not eat raw food</Text>
-                        </View>
-
-                    </View>
-                </View>
-                <View style={styles.section}>
-                    <View style={styles.headerWrapper}>
-                        <Text style={styles.header}>What do I do if I am infected?</Text>
-                    </View>
-                    <View style={styles.sectionContext}>
-
-                        <View style={styles.sectionItem}>
-                            <Image
-                                source={{ uri: getMediaUri("infected/0.png") }}
-                                style={styles.image} />
-                            <Text style={styles.sectionItemText}>Put tissues in trash bin after washing hands</Text>
-                        </View>
-                        <View style={styles.sectionItem}>
-                            <Image
-                                source={{ uri: getMediaUri("infected/1.png") }}
-                                style={styles.image} />
-                            <Text style={styles.sectionItemText}>Keep objects and surfaces clean</Text>
-                        </View>
-                        <View style={styles.sectionItem}>
-                            <Image
-                                source={{ uri: getMediaUri("infected/2.png") }}
-                                style={styles.image} />
-                            <Text style={styles.sectionItemText}>Avoid contact with others</Text>
-                        </View>
-                        <View style={styles.sectionItem}>
-                            <Image
-                                source={{ uri: getMediaUri("infected/3.png") }}
-                                style={styles.image} />
-                            <Text style={styles.sectionItemText}>Cover your mouth when you sneeze</Text>
-                        </View>
-                        <View style={styles.sectionItem}>
-                            <Image
-                                source={{ uri: getMediaUri("infected/4.png") }}
-                                style={styles.image} />
-                            <Text style={styles.sectionItemText}>Stay at home</Text>
+                            <Text style={styles.sectionItemText}>{i18n.t('seekMedicalCare')}</Text>
                         </View>
 
                     </View>

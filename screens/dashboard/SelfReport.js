@@ -1,74 +1,22 @@
 import React, { Component, useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Button, FlatList, Dimensions } from 'react-native'
-import { Checkbox } from 'react-native-paper'
+import { View, Text, StyleSheet, Button, FlatList, Dimensions, TouchableOpacity } from 'react-native'
 import Modal, { ModalContent, ModalButton, ModalFooter, ModalTitle, SlideAnimation } from 'react-native-modals'
 import firestore from '../../components/Firestore';
-import { RadioButton } from 'react-native-paper';
+import { RadioButton, Snackbar, Checkbox } from 'react-native-paper';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import Constants, { installationId } from 'expo-constants';
 import publicIP from 'react-native-public-ip';
 import i18n from 'i18n-js';
 import { countryCodes } from "../../utilities/constants";
-import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons } from "@expo/vector-icons"
 const countries = require("i18n-iso-countries");
 
 
 const infoIcon = (<Ionicons style={{ margin: 2 }} name="md-information-circle-outline" size={16} color={"darkgray"} />)
 
-const sendReport = (symptomatic, testResult, visitedCountries, potentialContact) => {
-    const report = {
-        deviceId: Constants.installationId,
-        symptomatic: symptomatic,
-        createdAt: Date.now(),
-        testResult: testResult,
-        visitedCountries: visitedCountries,
-        potentialContact: potentialContact,
-        ipAddress: null,
-        location: null,
-        locationFine: false,
-    }
 
-    publicIP().then((ipAddress) => {
-        report.ipAddress = ipAddress;
-        console.log("Got IP.", ipAddress)
-        Permissions.askAsync(Permissions.LOCATION).then((response) => {
-            console.log("ACCESS", response)
-            if (response.status !== "granted") { throw Error("Fine location access denied."); }
-            Location.getCurrentPositionAsync({}).then((position) => {
-                report.location = position;
-                report.locationFine = true;
-                firestore.collection("reported/overall/cases").add(report);
-            }).catch((e) => { console.log("fallback", e) })
-        }).catch((e) => {
-            console.log("fallback", e)
-            let position = { longitude: 0, latitude: 0 }
-            fetch(`https://freegeoip.app/json/`)
-                .then(response => {
-                    response.json().then((json) => {
-                        position = {
-                            state: json.region_name,
-                            city: json.city,
-                            country: json.country_code,
-                            latitude: json.latitude,
-                            longitude: json.longitude
-                        };
-                        report.location = position;
-                        console.log("fallback", e)
-                        firestore.collection("reported/overall/cases").add(report);
-                    })
-                        .catch((e) => {
-                            console.log("Error", e);
-                            report.location = position;
-                            firestore.collection("reported/overall/cases").add(report);
-                        })
-                })
-
-        })
-    }).catch((e)=>{});
-
-}
 
 class SelfReport extends Component {
     state = {
@@ -78,16 +26,83 @@ class SelfReport extends Component {
         testResult: null,
         visitedCountries: [],
         potentialContact: null,
-        infoModalText: "",
+        infoModalText: "...",
         infoModalVisible: false,
+        snackVisible: false,
+        snackText: ""
     }
+    sentFeedback(info) {
+        this.setState({ snackVisible: true, snackText: info });
+        console.log("REPORT STATUS", info);
+    }
+
+    sendReport = (symptomatic, testResult, visitedCountries, potentialContact) => {
+        const report = {
+            deviceId: Constants.installationId,
+            symptomatic: symptomatic,
+            createdAt: Date.now(),
+            testResult: testResult,
+            visitedCountries: visitedCountries,
+            potentialContact: potentialContact,
+            ipAddress: null,
+            location: null,
+            locationFine: false,
+        }
+
+        publicIP().then((ipAddress) => {
+            report.ipAddress = ipAddress;
+            console.log("Got IP.", ipAddress)
+            Permissions.askAsync(Permissions.LOCATION).then((response) => {
+                console.log("ACCESS", response)
+                if (response.status !== "granted") { throw Error("Fine location access denied."); }
+                Location.getCurrentPositionAsync({}).then((position) => {
+                    report.location = position;
+                    report.locationFine = true;
+                    firestore.collection("reported/overall/cases").add(report);
+                    console.log("REPORT SENT", this)
+                    this.sentFeedback("Report sent with fine location. Thank you.")
+                }).catch((e) => { console.log("fallback", e) })
+            }).catch((e) => {
+                console.log("fallback", e)
+                let position = { longitude: 0, latitude: 0 }
+                fetch(`https://freegeoip.app/json/`)
+                    .then(response => {
+                        response.json().then((json) => {
+                            position = {
+                                state: json.region_name,
+                                city: json.city,
+                                country: json.country_code,
+                                latitude: json.latitude,
+                                longitude: json.longitude
+                            };
+                            report.location = position;
+                            console.log("fallback", e)
+                            firestore.collection("reported/overall/cases").add(report);
+                            this.sentFeedback("Report sent with approximate location. Thank you.")
+                        })
+                            .catch((e) => {
+                                console.log("Error", e);
+                                report.location = position;
+                                firestore.collection("reported/overall/cases").add(report);
+                                this.sentFeedback("Report sent without location. Thank you.")
+                            })
+                    })
+
+            })
+        }).catch((e) => {
+            this.sentFeedback("Report could not sent. Something went wrong.")
+        });
+
+    }
+
     render() {
         const { infoModalVisible,
             infoModalText,
             visitedCountries,
             potentialContact,
             symptomatic,
-            testResult } = this.state;
+            testResult,
+            snackVisible } = this.state;
         return (
             <View style={styles.selfReportWrapper}>
                 <Text>{i18n.t('selfReportOffer')}</Text>
@@ -121,7 +136,7 @@ class SelfReport extends Component {
                                         margin: 0, padding: 0, flex: 1, width: "100%", height: "100%",
                                         justifyContent: "center", alignItems: "center"
                                     }}
-                                    onPress={() => { sendReport(symptomatic, testResult, visitedCountries, potentialContact); this.setState({ visible: false }) }} />
+                                    onPress={() => { this.sendReport(symptomatic, testResult, visitedCountries, potentialContact); this.setState({ visible: false }) }} />
                             </View>
 
                         </ModalFooter>)
@@ -177,7 +192,7 @@ class SelfReport extends Component {
                                         status={this.state.testResult === 'negative' ? 'checked' : 'unchecked'}
                                         onPress={() => { this.setState({ testResult: 'negative' }) }} />
                                 </View>
-                <Text>{i18n.t('negative')}</Text>
+                                <Text>{i18n.t('negative')}</Text>
                             </View>
                             <View style={styles.answer}>
 
@@ -187,7 +202,7 @@ class SelfReport extends Component {
                                         status={this.state.testResult === 'notTested' ? 'checked' : 'unchecked'}
                                         onPress={() => { this.setState({ testResult: 'notTested' }) }} />
                                 </View>
-                <Text>{i18n.t('notTested')}</Text>
+                                <Text>{i18n.t('notTested')}</Text>
                             </View>
                         </View>
                         {/* Visited countries question */}
@@ -205,11 +220,10 @@ class SelfReport extends Component {
                         {/* Contact with infected person question */}
                         <View style={{ flexWrap: 'wrap' }}>
                             <TouchableOpacity style={{ flexDirection: "row", justifyContent: "center" }}
-                                onPress={() => { this.setState({ infoModalVisible: true, infoModalText: i18n.t('potantialInfectInfo') }) }}>
+                                onPress={() => { this.setState({ infoModalVisible: true, infoModalText: i18n.t('potantialInfectInfo') }); console.log(this.state); }}>
                                 <Text>{i18n.t('didPotantialContact')} {infoIcon}</Text>
-
-
                             </TouchableOpacity>
+
                             <View style={{ flexDirection: "row" }}>
                                 <TouchableOpacity onPress={() => { this.setState({ potentialContact: "yes" }) }}
                                     style={{ flexDirection: "row", alignItems: "center" }}>
@@ -230,46 +244,6 @@ class SelfReport extends Component {
                         </View>
                     </ModalContent>
                 </Modal>
-                <Modal
-                    visible={this.state.countryListVisible}
-                    onTouchOutside={() => { this.setState({ countryListVisible: false }) }}
-                    footer={(<ModalFooter>
-                        <Button title={i18n.t('ok')}></Button>
-                    </ModalFooter>)}
-                >
-                    <ModalContent>
-                        <View >
-                            <ScrollView style={{
-                                height: Dimensions.get("window").height * 8 / 10,
-                                width: 200
-                            }}>
-                                {countryCodes.map((ccode) => {
-                                    return (
-                                        <TouchableOpacity
-                                            style={{ flexDirection: "row", margin: 1, alignItems: "center" }}
-                                            onPress={() => {
-                                                if (!visitedCountries.includes(ccode)) {
-                                                    this.setState({ visitedCountries: [...this.state.visitedCountries, ccode.toLowerCase()] })
-                                                } else {
-                                                    const vc = visitedCountries;
-                                                    vc.splice(vc.indexOf(ccode), 1)
-                                                    this.setState({ visitedCountries: vc })
-                                                }
-                                            }}
-                                            key={ccode}
-                                        >
-                                            <Checkbox
-                                                status={this.state.visitedCountries.includes(ccode.toLowerCase()) ? "checked" : "unchecked"}
-                                                onPress={() => { }}
-                                            />
-                                            <Text>{countries.getName(ccode, i18n.currentLocale().substr(0, 2))}</Text>
-                                        </TouchableOpacity>
-                                    );
-                                })}
-                            </ScrollView>
-                        </View>
-                    </ModalContent>
-                </Modal>
                 <Modal visible={infoModalVisible}
                     onTouchOutside={() => { this.setState({ infoModalVisible: false }) }}>
                     <ModalContent>
@@ -278,6 +252,18 @@ class SelfReport extends Component {
                         </View>
                     </ModalContent>
                 </Modal>
+                <Snackbar
+                    visible={snackVisible}
+                    onDismiss={() => this.setState({ snackVisible: false })}
+                    action={{
+                        label: 'OK',
+                        onPress: () => {
+                            this.setState({ snackVisible: false })
+                        },
+                    }}
+                >
+                    {this.state.snackText}
+                </Snackbar>
             </View>
         );
     }
@@ -286,7 +272,7 @@ class SelfReport extends Component {
 const styles = StyleSheet.create({
     selfReportWrapper: {
         flexDirection: "row",
-        flexWrap:"wrap",
+        flexWrap: "wrap",
         justifyContent: "space-between",
         alignItems: "center",
         borderColor: "green",
