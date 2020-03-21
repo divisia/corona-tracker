@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Track COVID-19",
+    "description":"This app is build to help world tracing coronavirus (COVID-19)",
     "slug": "trackcovid19",
     "privacy": "public",
     "sdkVersion": "36.0.0",
