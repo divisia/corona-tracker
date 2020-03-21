@@ -1,6 +1,7 @@
 import React, { Component, createContext } from 'react'
 import { View, AsyncStorage } from 'react-native';
 import firestore from "./Firestore";
+import i18n from 'i18n-js';
 
 const NA = "N/A";
 export const DatabaseContext = createContext();
@@ -9,6 +10,8 @@ export default class DatabaseContextProvider extends Component {
     static callbacks = { newsfeed: null, reported: null, confirmed: null }
 
     state = {
+        lang: i18n.currentLocale(),
+        changeLang: (lang) => { this.setState({ lang: lang }) },
         filter: [],
         heatmap: null,
         feeds: {
@@ -19,26 +22,27 @@ export default class DatabaseContextProvider extends Component {
             loading: true,
             query: "reported/overall",
             data: {
-                asympLow:NA,
-                asympMedium:NA,
-                sympLow:NA,
-                sympMedium:NA,
-                sympHigh:NA,
+                asympLow: NA,
+                asympMedium: NA,
+                sympLow: NA,
+                sympMedium: NA,
+                sympHigh: NA,
             }
         },
         cases: {
             loading: true,
             query: "cases/overall",
             data: {
-                dataSources:[],
-                subregions:[],
-                deaths:NA,
-                infections:NA,
-                recoveries:NA,
-                lastUpdate:NA,
+                dataSources: [],
+                subregions: [],
+                deaths: NA,
+                infections: NA,
+                recoveries: NA,
+                lastUpdate: NA,
             }
         },
     }
+
 
     queryGenerator = (type) => {
         if (this.state.filter.length == 0) { return type + "/overall" }
@@ -82,12 +86,12 @@ export default class DatabaseContextProvider extends Component {
         snapshot.forEach((doc) => {
             const data = doc.data();
             // Check if data may cause crash because of unfunfilled fields.
-            if (typeof data.feed_url === 'undefined' 
-            || typeof data.origin_url === 'undefined'
-            || typeof data.thumbnail_url === 'undefined'
-            || typeof data.header === 'undefined') { /* reserved */ }
+            if (typeof data.feed_url === 'undefined'
+                || typeof data.origin_url === 'undefined'
+                || typeof data.thumbnail_url === 'undefined'
+                || typeof data.header === 'undefined') { /* reserved */ }
             else { feedlist.push({ ...data, id: doc.id }) }
-            
+
         })
         this.setState({ feeds: { data: feedlist, loading: false } })
     }
@@ -138,11 +142,11 @@ export default class DatabaseContextProvider extends Component {
     }
     heatmapListener = (snapshot) => {
         if (typeof snapshot === 'undefined') {
-             return; 
+            return;
         }
         const heatmap = {};
         let points;
-        snapshot.forEach((pointArray) => { 
+        snapshot.forEach((pointArray) => {
             const pointArrayData = pointArray.data();
             if (typeof pointArrayData.points === 'undefined') { points = []; }
             else { points = pointArrayData; }

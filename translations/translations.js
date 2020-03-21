@@ -55,6 +55,7 @@ i18n.translations = {
         asympLow: "Asymptomatic - Low Risk",
 
         lastUpdate:"Last update",
+        goBack:"Go back",
 
         dataSource: "Data source",
         
@@ -134,6 +135,7 @@ i18n.translations = {
     }
 }
 AsyncStorage.getItem("language").then((lang)=>{
+    console.log("Previous language", lang);
     if (lang) i18n.locale = lang;
 })
 i18n.fallbacks = true;

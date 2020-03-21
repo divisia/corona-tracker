@@ -1,6 +1,6 @@
 import "./translations/translations"
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, AsyncStorage,DeviceEventEmitter } from 'react-native';
 import { BottomNavigation } from 'react-native-paper'
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import DatabaseContextProvider, { DatabaseContext } from "./components/DatabaseContext";
@@ -10,6 +10,16 @@ import * as Permissions from 'expo-permissions';
 import * as Font from 'expo-font';
 import i18n from 'i18n-js'
 import { fireNotification } from './notifications/notificationRegisterer';
+
+AsyncStorage.getAllKeys().then((keys)=>{
+  console.log("ASYNC STORAGE DATA:", keys)
+  keys.forEach((key)=>{
+    AsyncStorage.getItem(key).then((itemval)=>{
+      console.log(key, ":", itemval)
+    })
+  })
+})
+
 
 export default class App extends React.Component {
   state = {
@@ -21,10 +31,18 @@ export default class App extends React.Component {
       { key: 'virusinfo', title: i18n.t("covid19"), icon: 'atom' },
       { key: 'chat', title: i18n.t('alarms'), icon: 'alert' },
     ],
+    lang:""
   }
 
   async componentDidMount() {
     await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    this.langListener = DeviceEventEmitter.addListener("langChange", this.changeLang)
+  }
+
+  changeLang(lang){
+    console.log("GOTCHA", lang)
+    i18n.locale = lang.lang;
+    this.setState({lang:lang.lang});
   }
 
   _handleIndexChange = (index) => this.setState({ index });

@@ -29,7 +29,7 @@ class RegionSelector extends Component {
                         <View style={styles.regionSelectorWrapper}>
 
                             <TouchableOpacity onPress={() => { this.setState({ visible: true }) }}>
-                                <View style={styles.button}><Text>{i18n.t('region')}: {context.cases.loading || context.filter.length == 0 ? NA : countries.getName(context.filter[0], i18n.currentLocale().substr(0,2)) + context.filter.slice(1).map((reg)=>{return i18n.t(reg)}).join(", ")}</Text></View>
+                                <View style={styles.button}><Text>{i18n.t('region')}: {context.cases.loading || context.filter.length == 0 ? NA : countries.getName(context.filter[0], i18n.currentLocale().substr(0,2)) +", "+ context.filter.slice(1).join(", ")}</Text></View>
                             </TouchableOpacity>
 
 
@@ -40,6 +40,17 @@ class RegionSelector extends Component {
                                     slideFrom: 'bottom',
                                 })}>
                                 <ModalContent>
+                                    {
+                                        context.filter.length>=1?<ListItem
+                                        key={"goBack"}
+                                        containerStyle={styles.subregionContainer}
+                                        title={i18n.t('goBack')}
+                                        onPress={() => {
+                                            console.log("NEW FILTER:",context.filter.slice(0,-1).join(":"));
+                                            context.alterFilter(context.filter.slice(0,-1).join(":"))
+                                        }}/>:null
+                                    }
+
                                     {context.cases.loading ? null :
                                         context.cases.data.subregions.map((region) => {
                                             return (
