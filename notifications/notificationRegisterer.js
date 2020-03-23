@@ -17,11 +17,12 @@ const showNotification = (nft) => {
 
 AsyncStorage.getItem("sentNotifications").then((sent) => {
     console.log("sent", sent)
-    if (sent) sent_ids = JSON.parse(sent);
+    if (sent) sent_ids = JSON.parse(sent).map(nft=>{return nft.id});
+    console.log("SENT IDS", sent_ids)
     firestore.collection("push").onSnapshot((list) => {
         list.forEach((nft) => {
             const data = nft.data();
-            if (!sent_ids.includes(nft.id)) { showNotification(data) }
+            if (!sent_ids.includes(data.id)) { showNotification(data) }
             notifications.push(data)
             ids.push(nft.id);
         })

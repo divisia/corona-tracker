@@ -35,6 +35,7 @@ i18n.translations = {
         breathShortness:"Shortness of breath",
         cough:"Cough",
         headache:"Headache",
+        world:"World",
 
         socialDistance:"Avoid contact with others",
         stayHome:"Stay at home",
@@ -53,6 +54,9 @@ i18n.translations = {
         sympLow: "Symptomatic - Low Risk",
         asympMedium: "Asymptomatic - Medium Risk",
         asympLow: "Asymptomatic - Low Risk",
+        highRisk:"High Risk",
+        mediumRisk:"Medium Risk",
+        lowRisk:"Low Risk",
 
         lastUpdate:"Last update",
         goBack:"Go back",
@@ -75,6 +79,7 @@ i18n.translations = {
         reportedSymptomaticNegative: "Berichtet Symptomatisch - Positiv getestet",
         selfReportOffer: "Möchten Sie uns helfen, COVID-19 aufzuspüren?",
         selfReportButton: "Klar",
+        world:"Welt",
 
         covid19Symptoms:"Symptome",
         covid19Avoid:"Wie kann ich mich vor einer Ansteckung schützen?",
@@ -117,6 +122,10 @@ i18n.translations = {
         sympLow: "Symptomatisch – Niedriges Risiko",
         asympMedium: "Asymptomatisch – Mittleres Risiko",
         asympLow: "Asymptomatisch – Niedriges Risiko",
+
+        highRisk:"Hohes Risiko",
+        mediumRisk:"Mittleres Risiko",
+        lowRisk:"Niedriges Risiko",
 
         dashboard: "Dashboard",
         alarms: "Alarme",

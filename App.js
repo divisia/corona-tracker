@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput, Button, AsyncStorage,DeviceEventEmit
 import { BottomNavigation } from 'react-native-paper'
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import DatabaseContextProvider, { DatabaseContext } from "./components/DatabaseContext";
-import { MapScreen, FeedsScreen, ChatScreen, DashboardScreen, VirusInfoScreen } from "./screens/Screens";
+import { MapsScreen, FeedsScreen, ChatScreen, DashboardScreen, VirusInfoScreen } from "./screens/Screens";
 import { Header } from "react-native-elements";
 import * as Permissions from 'expo-permissions';
 import * as Font from 'expo-font';

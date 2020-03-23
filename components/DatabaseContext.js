@@ -35,9 +35,11 @@ export default class DatabaseContextProvider extends Component {
             data: {
                 dataSources: [],
                 subregions: [],
-                deaths: NA,
-                infections: NA,
-                recoveries: NA,
+                dead: {
+                    now:NA
+                },
+                infected: {now:NA},
+                recovered: {now:NA},
                 lastUpdate: NA,
             }
         },

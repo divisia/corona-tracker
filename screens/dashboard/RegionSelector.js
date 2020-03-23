@@ -29,7 +29,7 @@ class RegionSelector extends Component {
                         <View style={styles.regionSelectorWrapper}>
 
                             <TouchableOpacity onPress={() => { this.setState({ visible: true }) }}>
-                                <View style={styles.button}><Text>{i18n.t('region')}: {context.cases.loading || context.filter.length == 0 ? NA : countries.getName(context.filter[0], i18n.currentLocale().substr(0,2)) +", "+ context.filter.slice(1).join(", ")}</Text></View>
+                                <View style={styles.button}><Text>{i18n.t('region')}: {context.cases.loading || context.filter.length == 0 ? i18n.t('world') : countries.getName(context.filter[0], i18n.currentLocale().substr(0,2)) +", "+ context.filter.slice(1).join(", ")}</Text></View>
                             </TouchableOpacity>
 
 

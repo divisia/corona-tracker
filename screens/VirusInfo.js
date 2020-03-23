@@ -42,7 +42,7 @@ export default class VirusInfo extends Component {
                             <Image
                                 source={{ uri: getMediaUri("symptoms/4.png") }}
                                 style={styles.image} />
-                            <Text style={styles.sectionItemText}>{i18n.t('fewer')}</Text>
+                            <Text style={styles.sectionItemText}>{i18n.t('fever')}</Text>
                         </View>
 
                     </View>
