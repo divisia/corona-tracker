@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button, Divider, ListItem, Header, Badge } from 'react-native-elements'
 import { DatabaseContext } from "../../components/DatabaseContext";
@@ -18,8 +18,9 @@ class CasesListView extends React.Component {
         infoVisible: false,
         infoText: "The unexpecthed has been happening. Report this to the author."
     }
-
+    
     render() {
+
         return (
             <DatabaseContext.Consumer>
                 {(context) => {
@@ -47,7 +48,7 @@ class CasesListView extends React.Component {
                                     })
                                 }}
                                 leftElementStyle={styles.caseTitle}
-                                rightElement={(<Text>{reported.data.sympHigh.now}</Text>)}
+                                rightElement={(<Text>{reported.data.sympHigh}</Text>)}
                                 leftElement={
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ margin: 4, backgroundColor: "brown", width: 12, height: 12, borderRadius:50 }} />
@@ -67,7 +68,7 @@ class CasesListView extends React.Component {
                                     })
                                 }}
                                 leftElementStyle={styles.caseTitle}
-                                rightElement={(<Text>{reported.data.sympMedium.now}</Text>)}
+                                rightElement={(<Text>{reported.data.sympMedium}</Text>)}
                                 leftElement={
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ margin: 4, backgroundColor: "cyan", width: 12, height: 12, borderRadius:50 }} />
@@ -87,7 +88,7 @@ class CasesListView extends React.Component {
                                     })
                                 }}
                                 leftElementStyle={styles.caseTitle}
-                                rightElement={(<Text>{reported.data.sympLow.now}</Text>)}
+                                rightElement={(<Text>{reported.data.sympLow}</Text>)}
                                 leftElement={
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ margin: 4, backgroundColor: "purple", width: 12, height: 12, borderRadius:50 }} />
@@ -107,7 +108,7 @@ class CasesListView extends React.Component {
                                     })
                                 }}
                                 leftElementStyle={styles.caseTitle}
-                                rightElement={(<Text>{reported.data.asympMedium.now}</Text>)}
+                                rightElement={(<Text>{reported.data.asympMedium}</Text>)}
                                 leftElement={
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ margin: 4, backgroundColor: "gold", width: 12, height: 12, borderRadius:50 }} />
@@ -127,7 +128,7 @@ class CasesListView extends React.Component {
                                     })
                                 }}
                                 leftElementStyle={styles.caseTitle}
-                                rightElement={(<Text>{reported.data.asympLow.now}</Text>)}
+                                rightElement={(<Text>{reported.data.asympLow}</Text>)}
                                 leftElement={
                                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                                         <View style={{ margin: 4, backgroundColor: "blue", width: 12, height: 12, borderRadius:50 }} />

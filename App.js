@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput, Button, AsyncStorage,DeviceEventEmit
 import { BottomNavigation } from 'react-native-paper'
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import DatabaseContextProvider, { DatabaseContext } from "./components/DatabaseContext";
-import { MapsScreen, FeedsScreen, ChatScreen, DashboardScreen, VirusInfoScreen } from "./screens/Screens";
+import { MapScreen, FeedsScreen, ChatScreen, DashboardScreen, VirusInfoScreen } from "./screens/Screens";
 import { Header } from "react-native-elements";
 import * as Permissions from 'expo-permissions';
 import * as Font from 'expo-font';
@@ -23,7 +23,7 @@ AsyncStorage.getAllKeys().then((keys)=>{
 
 export default class App extends React.Component {
   state = {
-    index: 0,
+    index: 1,
     routes: [
       { key: 'dashboard', title: i18n.t('dashboard'), icon: 'home' },
       { key: 'map', title: i18n.t('map'), icon: 'map' },
