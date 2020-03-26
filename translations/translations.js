@@ -48,6 +48,7 @@ i18n.translations = {
         news: "News",
         covid19: "COVID-19",
         alarms: "Alarms",
+        countries:"Countries",
 
         sympHigh: "Symptomatic - High Risk",
         sympMedium: "Symptomatic - Medium Risk",
@@ -131,6 +132,7 @@ i18n.translations = {
         alarms: "Alarme",
 
         region: "Region",
+        countries:"Länder",
 
         cn: "Schweiz",
 
