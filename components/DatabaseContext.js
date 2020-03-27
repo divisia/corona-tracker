@@ -171,7 +171,7 @@ export default class DatabaseContextProvider extends Component {
         this.shouldUpdate = true;
         this.config = {}
         this.loadSavedFilter();
-        firestore.collection("newsfeed").onSnapshot(this.feedsListener);
+        firestore.collection("newsfeed").orderBy("createdAt", "desc").limit(20).onSnapshot(this.feedsListener);
         firestore.collection("heatmap").onSnapshot(this.heatmapListener);
         this.config.unsubscribeCases = firestore.doc(this.state.cases.query).onSnapshot(this.casesListener);
         this.config.unsubscribeReported = firestore.doc(this.state.reported.query).onSnapshot(this.reportedListener);
